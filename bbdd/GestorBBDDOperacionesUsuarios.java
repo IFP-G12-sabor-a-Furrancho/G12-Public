@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class GestorBBDDOperacionesUsuarios {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		// Importamos el método scanner para introducir datos por pantalla
 		Scanner entradaDatos = new Scanner(System.in);
