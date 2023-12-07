@@ -14,7 +14,7 @@ public class GestorBBDDOperacionesUsuarios {
 		// Importamos el método scanner para introducir datos por pantalla
 		Scanner entradaDatos = new Scanner(System.in);
 
-		// Declaracion de variables
+		// Declaración de variables
 		int opcion = 1;
 		int numeroCampos = 11;
 		int i = 0;
