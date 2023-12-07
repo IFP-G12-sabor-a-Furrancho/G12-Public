@@ -88,7 +88,7 @@ public class GestorBBDDOperacionesUsuarios {
 					}
 					/*
 					 * Tras tener los datos suficientes para realizar la consulta, llamamos al
-					 * metodo necesario para realizar la consulta
+					 * método necesario para realizar la consulta
 					 */
 					consulta(consulta, s);
 				}
