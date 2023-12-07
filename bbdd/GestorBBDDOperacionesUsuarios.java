@@ -199,6 +199,7 @@ public class GestorBBDDOperacionesUsuarios {
 					System.out.println("1 - Eliminar fila");
 					System.out.println("2 - Eliminar tabla");
 					opcion = entradaDatos.nextInt();
+					entradaDatos.nextLine();
 					parentesisConsulta = "";
 					if (opcion == 1) {
 						// Eliminar fila
@@ -217,7 +218,6 @@ public class GestorBBDDOperacionesUsuarios {
 						System.out.println("1 - Sí");
 						System.out.println("2 - No");
 						opcion = entradaDatos.nextInt();
-
 						if (opcion == 1) {
 							consulta = "DROP TABLE " + nombreTabla;
 							System.out.println("La consulta para eliminar la tabla es: " + consulta);
