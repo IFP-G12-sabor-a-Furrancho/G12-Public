@@ -1,3 +1,5 @@
+package bbdd;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,7 +12,7 @@ public class GestorBBDDOperacionesUsuarios {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		// Importamos el método scanner para introducir datos por pantalla
+		// Importamos el mÃ©todo scanner para introducir datos por pantalla
 		Scanner entradaDatos = new Scanner(System.in);
 
 		// Declaracion de variables
@@ -28,17 +30,17 @@ public class GestorBBDDOperacionesUsuarios {
 		Connection conexion = null;
 		try {
 
-			// Ruta de conexión indicando la ruta y el nombre de la base de datos, el
-			// usuario y la contraseña
+			// Ruta de conexiÃ³n indicando la ruta y el nombre de la base de datos, el
+			// usuario y la contraseÃ±a
 			conexion = DriverManager.getConnection(DBURL, "fl0user", "lpEWc0JdMgK4");
 
-			// Mostramos un mensaje de confirmación de que la conexión se ha establecido con
-			// éxito
-			System.out.println("Conexión establecida");
+			// Mostramos un mensaje de confirmaciÃ³n de que la conexiÃ³n se ha establecido con
+			// Ã©xito
+			System.out.println("ConexiÃ³n establecida");
 
 			while (opcion != 0) {
 
-				// Pedimos al usuario que opción desea realizar
+				// Pedimos al usuario que opciÃ³n desea realizar
 				System.out.println("");
 				System.out.println("");
 				System.out.println("Por favor escoja que opcion desea realizar:");
@@ -53,13 +55,13 @@ public class GestorBBDDOperacionesUsuarios {
 				opcion = entradaDatos.nextInt();
 				
 
-				// En el caso de que escoja la opción 0 (Salir), el programa finaliza
+				// En el caso de que escoja la opciÃ³n 0 (Salir), el programa finaliza
 
 				// Consultar usuarios
 
 				if (opcion == 1) {
 
-					// Establecemos un canal de comunicación de consultas a SQL
+					// Establecemos un canal de comunicaciÃ³n de consultas a SQL
 					Statement s = (Statement) conexion.createStatement();
 
 					// Damos al usuario la opcion de escoger si quiere leer una fila o la tabla
@@ -73,7 +75,7 @@ public class GestorBBDDOperacionesUsuarios {
 						// Leer fila, en este caso el usuario debe de indicar el nombre de la fila
 						entradaDatos.nextLine();
 						System.out.println(
-								"Para leer una fila debe de indicar que condición se debe de cumplir, indicando el nombre de de uno de los campos y el valor del campo");
+								"Para leer una fila debe de indicar que condiciÃ³n se debe de cumplir, indicando el nombre de de uno de los campos y el valor del campo");
 						System.out.println("Por favor, indique el nombre del campo:");
 						tipoCampo = entradaDatos.nextLine();
 						System.out.println("Por favor, indique el valor del campo:");
@@ -99,7 +101,7 @@ public class GestorBBDDOperacionesUsuarios {
 				else if (opcion == 2) {
 					entradaDatos.nextLine();
 
-					// Establecemos un canal de comunicación de consultas a SQL
+					// Establecemos un canal de comunicaciÃ³n de consultas a SQL
 					Statement s = (Statement) conexion.createStatement();
 
 					System.out.println("Ha escogido la opcion agregar usuario");
@@ -142,14 +144,14 @@ public class GestorBBDDOperacionesUsuarios {
 				// Modificar usuario
 
 				else if (opcion == 3) {
-					// Establecemos un canal de comunicación de consultas a SQL
+					// Establecemos un canal de comunicaciÃ³n de consultas a SQL
 					Statement s = (Statement) conexion.createStatement();
 
 					System.out.println("Ha escogido la opcion modificar");
 
 					consulta = "UPDATE " + nombreTabla;
 
-					System.out.println("¿Cuántos campos desea modificar?");
+					System.out.println("Â¿CuÃ¡ntos campos desea modificar?");
 					numeroCampos = entradaDatos.nextInt();
 					entradaDatos.nextLine();
 					parentesisConsulta = "";
@@ -162,14 +164,14 @@ public class GestorBBDDOperacionesUsuarios {
 							nombreCampo[j] = entradaDatos.nextLine();
 							System.out.println("Introduzca el nuevo valor del campo " + nombreCampo[j] + ":");
 							valorCampo = entradaDatos.nextLine();
-							//Se debe de modificar para que se respeten las mayúsculas (Borrar comilla simple antes y después de nombreCampo[j]
+							//Se debe de modificar para que se respeten las mayÃºsculas (Borrar comilla simple antes y despuÃ©s de nombreCampo[j]
 							parentesisConsulta = parentesisConsulta + "\"" + nombreCampo[j] + "\"" + "=" + "'" + valorCampo + "'";
 						} else {
 							System.out.println("Introduzca el nombre del campo " + i + " que desea modificar:");
 							nombreCampo[j] = entradaDatos.nextLine();
 							System.out.println("Introduzca el nuevo valor del campo " + nombreCampo[j] + ":");
 							valorCampo = entradaDatos.nextLine();
-							//Se debe de modificar para que se respeten las mayúsculas
+							//Se debe de modificar para que se respeten las mayÃºsculas
 							parentesisConsulta = parentesisConsulta +  "\"" + nombreCampo[j] + "\"" + "=" + "'" + valorCampo + "'"
 									+ ",";
 						}
@@ -190,11 +192,11 @@ public class GestorBBDDOperacionesUsuarios {
 				// Eliminar usuario
 
 				else if (opcion == 4) {
-					// Establecemos un canal de comunicación de consultas a SQL
+					// Establecemos un canal de comunicaciÃ³n de consultas a SQL
 					Statement s = (Statement) conexion.createStatement();
 
 					System.out.println("Ha escogido la opcion eliminar datos");
-					System.out.println("Desea eliminar sólo una fila o la tabla entera, por favor escoja una opcion:");
+					System.out.println("Desea eliminar sÃ³lo una fila o la tabla entera, por favor escoja una opcion:");
 					System.out.println("1 - Eliminar fila");
 					System.out.println("2 - Eliminar tabla");
 					opcion = entradaDatos.nextInt();
@@ -212,8 +214,8 @@ public class GestorBBDDOperacionesUsuarios {
 						insertarModificarEliminar(consulta, s);
 					} else {
 						// Eliminar tabla
-						System.out.println("¿Está seguro que desea borrar la tabla entera?");
-						System.out.println("1 - Sí");
+						System.out.println("Â¿EstÃ¡ seguro que desea borrar la tabla entera?");
+						System.out.println("1 - SÃ­");
 						System.out.println("2 - No");
 						opcion = entradaDatos.nextInt();
 
@@ -229,23 +231,23 @@ public class GestorBBDDOperacionesUsuarios {
 				}
 			}
 
-			// Finalizamos la conexión
+			// Finalizamos la conexiÃ³n
 			conexion.close();
 
-			// Mostramos un mensaje de confirmación de que la conexión se ha cerrado con
-			// éxito
-			System.out.println("Conexión cerrada con exito");
+			// Mostramos un mensaje de confirmaciÃ³n de que la conexiÃ³n se ha cerrado con
+			// Ã©xito
+			System.out.println("ConexiÃ³n cerrada con exito");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.err.println("No se ha podido establecer la conexión correctamente");
+			System.err.println("No se ha podido establecer la conexiÃ³n correctamente");
 			e.printStackTrace();
 		}
 
 	}
 
-	// Métodos
+	// MÃ©todos
 
-	// Método para crear, modificar y eliminar usuarios
+	// MÃ©todo para crear, modificar y eliminar usuarios
 	public static void insertarModificarEliminar(String consulta, Statement s) throws SQLException {
 		try {
 			s.executeUpdate(consulta);
@@ -257,7 +259,7 @@ public class GestorBBDDOperacionesUsuarios {
 		}
 	}
 
-	// Método para consultar usuarios
+	// MÃ©todo para consultar usuarios
 	public static void consulta(String consulta, Statement s) throws SQLException {
 		try {
 			ResultSet rs = s.executeQuery(consulta);
