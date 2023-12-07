@@ -237,7 +237,6 @@ public class GestorBBDDOperacionesUsuarios {
 			// éxito
 			System.out.println("Conexión cerrada con exito");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			System.err.println("No se ha podido establecer la conexión correctamente");
 			e.printStackTrace();
 		}
