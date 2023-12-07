@@ -23,9 +23,7 @@ public class GestorBBDD {
      */
     public void conectarBBDD(String url, String usuario, String contrasena) {
         try {
-            // Cargar el controlador de la base de datos
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
+         
             // Establecer la conexión
             conexion = DriverManager.getConnection(url, usuario, contrasena);
 
@@ -33,8 +31,6 @@ public class GestorBBDD {
                 System.out.println("Conexión exitosa a la base de datos");
             }
 
-        } catch (ClassNotFoundException e) {
-            System.err.println("Error al cargar el controlador de la base de datos: " + e.getMessage());
         } catch (SQLException e) {
             System.err.println("Error al conectar a la base de datos: " + e.getMessage());
         }
@@ -62,10 +58,10 @@ public class GestorBBDD {
         // Crea una instancia del GestorBBDD
         GestorBBDD gestor = new GestorBBDD();
 
-        String url = "jdbc:mysql://localhost:3306/tu_base_de_datos";
-        String usuario = null;
-        String contrasena = null;
-
+        final String url = "jdbc:postgresql://ep-nameless-snow-71296629.eu-central-1.aws.neon.fl0.io:5432/comergallego-Alberto?sslmode=require";
+        String usuario = "fl0user"; 
+        String contrasena = "lpEWc0JdMgK4";
+        
         // Conectar a la base de datos
         gestor.conectarBBDD(url, usuario, contrasena);
 
