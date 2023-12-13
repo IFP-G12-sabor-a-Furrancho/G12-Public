@@ -1,4 +1,4 @@
-# G12-Public# Proyecto de Gestión de Usuarios y Locales
+# Proyecto Sabor a Furrancho
 
 Este proyecto es una aplicación de gestión de usuarios y locales que utiliza una base de datos PostgreSQL para almacenar la información. A continuación, se detallan los componentes principales del proyecto:
 
