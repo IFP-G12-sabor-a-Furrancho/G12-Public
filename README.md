@@ -1,5 +1,7 @@
 # Proyecto Sabor a Furrancho
 
+![image](https://github.com/IFP-G12-sabor-a-Furrancho/G12-Public/assets/92251234/31c7d1d7-8b51-438b-bf67-b9aabce037fd)
+
 Este proyecto es una aplicación de gestión de usuarios y locales que utiliza una base de datos PostgreSQL para almacenar la información. A continuación, se detallan los componentes principales del proyecto:
 
 ## Motor de la Base de Datos
