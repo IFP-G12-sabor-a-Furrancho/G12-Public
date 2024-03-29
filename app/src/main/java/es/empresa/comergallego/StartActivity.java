@@ -20,7 +20,6 @@ public class StartActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_start);
 
-
         //agregar animaciones
 
         Animation ani1= AnimationUtils.loadAnimation(this, R.anim.desplazamiento_arriba);
@@ -33,10 +32,11 @@ public class StartActivity extends AppCompatActivity {
         label1.setAnimation(ani2);
         ima1.setAnimation(ani1);
 
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+                Intent intent = new Intent(StartActivity.this, SearchActivity.class);
                 startActivity(intent);
                 finish();
             }

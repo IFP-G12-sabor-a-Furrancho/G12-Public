@@ -11,6 +11,8 @@ import android.widget.ImageView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.sql.SQLException;
+
 public class LoginActivity extends AppCompatActivity {
 
     protected TextInputEditText caja1;
