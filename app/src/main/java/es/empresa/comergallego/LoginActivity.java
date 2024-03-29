@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     protected TextInputEditText caja1;
     protected TextInputEditText caja2;
@@ -23,7 +23,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.activity_login);
 
 
         caja1 = (TextInputEditText) findViewById(R.id.text1_login);
