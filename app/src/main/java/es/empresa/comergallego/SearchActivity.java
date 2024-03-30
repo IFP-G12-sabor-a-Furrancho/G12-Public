@@ -6,17 +6,14 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class SearchActivity extends AppCompatActivity {
 
     protected Button boton1;
+
+    protected GestorBBDD bd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +27,14 @@ public class SearchActivity extends AppCompatActivity {
         boton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "jdbc:postgresql://ep-shy-glade-57906898.eu-central-1.aws.neon.fl0.io:5432/comergallego";
+
+                try {
+                    bd = new GestorBBDD();
+                    bd.desconectarBBDD();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                /**String url = "jdbc:postgresql://ep-shy-glade-57906898.eu-central-1.aws.neon.fl0.io:5432/comergallego";
                 String user = "fl0user";
                 String password = "8Zizcvy1rMhs";
 
@@ -40,22 +44,7 @@ public class SearchActivity extends AppCompatActivity {
                     Toast.makeText(SearchActivity.this, "Conexión exitosa", Toast.LENGTH_SHORT).show();
 
                     try {
-                        //String test = "INSERT INTO test (id, titulo) VALUES (?, ?)";
-                        //String insertar = "INSERT INTO localizaciones (id_localizacion, nombrelocal, direccion, descripcion, tipolocal, horario, telefono, coordenadasgps, capacidad, valoracion) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
-                        String insertar = "INSERT INTO localizaciones (nombrelocal, direccion, descripcion, tipolocal, horario, telefono, coordenadasgps, capacidad, valoracion) VALUES (?,?,?,?,?,?,?,?,?)";
-
-                        PreparedStatement pstmt = conn.prepareStatement(insertar);
-                        /**pstmt.setInt(1,1);
-                        pstmt.setString(2, "prueba");
-                        pstmt.setString(3, "calle BCN");
-                        pstmt.setString(4,"Furancho");
-                        pstmt.setString(5,"Restaurante");
-                        pstmt.setString(6,"12 a 15h");
-                        pstmt.setString(7,"5555555");
-                        pstmt.setString(8,"1234567");
-                        pstmt.setInt(9,100);
-                        pstmt.setString(10,"Buena");**/
 
                         pstmt.setString(1, "prueba2");
                         pstmt.setString(2, "calle BCN");
@@ -83,9 +72,8 @@ public class SearchActivity extends AppCompatActivity {
                 }
 
 
-
+**/
             }
         });
-
     }
 }
