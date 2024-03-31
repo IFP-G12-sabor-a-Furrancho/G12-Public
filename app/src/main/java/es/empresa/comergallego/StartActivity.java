@@ -32,6 +32,7 @@ public class StartActivity extends AppCompatActivity {
         label1.setAnimation(ani2);
         ima1.setAnimation(ani1);
 
+        //
 
         new Handler().postDelayed(new Runnable() {
             @Override
