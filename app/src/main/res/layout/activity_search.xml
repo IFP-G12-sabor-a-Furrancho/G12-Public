@@ -6,13 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".SearchActivity">
 
-    <Button
-        android:id="@+id/boton1_search"
+    <SearchView
+        android:id="@+id/search1_search"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="41dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:text="Conexión BD"
+        android:layout_marginEnd="24dp"
+        android:background="#675F5F"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/caja1_search"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search1_search" />
 </androidx.constraintlayout.widget.ConstraintLayout>
