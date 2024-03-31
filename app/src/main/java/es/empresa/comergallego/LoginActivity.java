@@ -11,8 +11,6 @@ import android.widget.ImageView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.sql.SQLException;
-
 public class LoginActivity extends AppCompatActivity {
 
     protected TextInputEditText caja1;
@@ -28,8 +26,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        caja1 = (TextInputEditText) findViewById(R.id.text1_login);
-        caja2 = (TextInputEditText) findViewById(R.id.edit2_login);
+        caja1 = (TextInputEditText) findViewById(R.id.text1_register);
+        caja2 = (TextInputEditText) findViewById(R.id.text2_register);
         ima1= (ImageView) findViewById(R.id.ima1_login);
         button1 = (Button) findViewById(R.id.button1_login);
         button2 = (Button) findViewById(R.id.boton2_login);
