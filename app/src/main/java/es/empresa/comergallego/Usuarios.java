@@ -11,11 +11,11 @@ public class Usuarios {
     private String historialBusquedas;
     private int ubicacionActual;
     private String idiomaPreferido;
-    private String rolUsuario;
+    private boolean rolUsuario;
 
 
     //Metodo con sobrecarga
-    public Usuarios(String nU,String n, String a, String f, String c, String p, String h, int u , String i, String r){
+    public Usuarios(String nU,String n, String a, String f, String c, String p, String h, int u , String i, boolean r){
         this.nombreUsuario= nU;
         this.nombre=n;
         this.apellido=a;
@@ -26,6 +26,16 @@ public class Usuarios {
         this.ubicacionActual=u;
         this.idiomaPreferido=i;
         this.rolUsuario=r;
+    }
+
+    public void UsuarioReg(String nU, String n, String a , String f, String em, String pass, boolean rol){
+        this.nombreUsuario= nU;
+        this.nombre=n;
+        this.apellido=a;
+        this.fechaNacimiento=f;
+        this.correoElectronico=em;
+        this.password=pass;
+        this.rolUsuario=rol;
     }
     //Getters y setters
     public String getNombreUsuario() {
@@ -100,11 +110,11 @@ public class Usuarios {
         this.idiomaPreferido = idiomaPreferido;
     }
 
-    public String getRolUsuario() {
+    public boolean getRolUsuario() {
         return rolUsuario;
     }
 
-    public void setRolUsuario(String rolUsuario) {
+    public void setRolUsuario(boolean rolUsuario) {
         this.rolUsuario = rolUsuario;
     }
 }
