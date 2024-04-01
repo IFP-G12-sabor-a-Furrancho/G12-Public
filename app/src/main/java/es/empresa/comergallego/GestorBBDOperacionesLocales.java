@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class GestorBBDOperacionesLocales{
     String url = "jdbc:postgresql://ep-shy-glade-57906898.eu-central-1.aws.neon.fl0.io:5432/comergallego";
@@ -31,8 +32,9 @@ public class GestorBBDOperacionesLocales{
         }
     }
 
-    public String consulta(String nombrelocal) throws SQLException {
-        String linea="";
+    public ArrayList<String> consulta(String nombrelocal) throws SQLException {
+        //String linea="";
+        ArrayList<String> filas = new ArrayList<String>();
         String consulta ="";
 
         try {
@@ -46,12 +48,13 @@ public class GestorBBDOperacionesLocales{
             System.out.println("Datos obtenidos correctamente2");
             System.out.println("");
             while (rs.next()) {
-                System.out.println(rs.getInt(1) + " - " + rs.getString(2) + " - "
+                filas.add(rs.getInt(1) + " - " + rs.getString(2) + " - "
                         + rs.getString(3) + " - " + rs.getString(4) + " - "
                         + rs.getString(5) + " - " + rs.getString(6) + " - "
                         + rs.getString(7) + " - " + rs.getString(8) + " - "
                         + rs.getInt(9) + " - " + rs.getString(10));
-                linea = rs.getString(2);
+
+                //linea = rs.getString(2);
             }
         } finally {
             if (s != null) {
@@ -60,10 +63,10 @@ public class GestorBBDOperacionesLocales{
                 conn.close();
             }
         }
-        if (linea.equals("")){
-            linea = "Datos no encontrados";
+        if (filas.isEmpty()){
+            filas.add("Datos no encontrados");
         }
 
-        return linea;
+        return filas;
     }
 }

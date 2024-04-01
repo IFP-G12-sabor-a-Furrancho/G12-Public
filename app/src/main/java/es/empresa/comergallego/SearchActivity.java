@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,16 +15,16 @@ import android.widget.Toast;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     protected SearchView search1;
     protected GestorBBDD bd;
-    protected TextView caja1;
+    protected ListView lista1;
+    private ArrayList<String> localizaciones = new ArrayList<String>();
+    private ArrayAdapter<String> adaptador;
 
-    String url = "jdbc:postgresql://ep-shy-glade-57906898.eu-central-1.aws.neon.fl0.io:5432/comergallego";
-    String user = "fl0user";
-    String password = "8Zizcvy1rMhs";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +34,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         StrictMode.setThreadPolicy(threadPolicy);
 
         search1 = (SearchView) findViewById(R.id.search1_search);
-        caja1 = (TextView) findViewById(R.id.caja1_search);
-
+        lista1 = (ListView) findViewById(R.id.lista1_search);
         search1.setOnQueryTextListener(this);
     }
 
@@ -41,16 +42,20 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     public boolean onQueryTextSubmit(String query) {
         try {
 
-            try {
-                Connection conn = DriverManager.getConnection(url, user, password);
-                Toast.makeText(SearchActivity.this, "Exito", Toast.LENGTH_SHORT).show();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+
+            bd = new GestorBBDD();
+
+            Toast.makeText(SearchActivity.this, "Exito", Toast.LENGTH_SHORT).show();
 
             GestorBBDOperacionesLocales bdLocales = new GestorBBDOperacionesLocales();
 
-            caja1.setText(bdLocales.consulta(query));
+            localizaciones = bdLocales.consulta(query);
+            adaptador = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_list_item_1, localizaciones);
+            lista1.setAdapter(adaptador);
+
+
+
+            bd.desconectarBBDD();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
