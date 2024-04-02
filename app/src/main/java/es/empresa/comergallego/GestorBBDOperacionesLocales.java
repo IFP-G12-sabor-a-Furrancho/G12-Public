@@ -40,7 +40,8 @@ public class GestorBBDOperacionesLocales{
         try {
 
             System.out.println("Datos obtenidos correctamente4");
-            consulta = "Select * from localizaciones where nombrelocal='" + nombrelocal + "'";
+            consulta = "Select nombrelocal, direccion from localizaciones where nombrelocal LIKE '%" + nombrelocal + "%' OR direccion like '%" + nombrelocal + "%' " +
+                    "OR descripcion like '%" + nombrelocal + "%' OR tipolocal like '%\" + nombrelocal + \"%'";
             System.out.println("Datos obtenidos correctamente1");
             s = conn.createStatement();
 
@@ -48,11 +49,14 @@ public class GestorBBDOperacionesLocales{
             System.out.println("Datos obtenidos correctamente2");
             System.out.println("");
             while (rs.next()) {
-                filas.add(rs.getInt(1) + " - " + rs.getString(2) + " - "
-                        + rs.getString(3) + " - " + rs.getString(4) + " - "
-                        + rs.getString(5) + " - " + rs.getString(6) + " - "
-                        + rs.getString(7) + " - " + rs.getString(8) + " - "
-                        + rs.getInt(9) + " - " + rs.getString(10));
+
+                filas.add(rs.getString(1) + "\n\nDirección: " + rs.getString(2));
+
+                //filas.add(rs.getString(1) + " - " + rs.getString(2) + " - "
+                  //      + rs.getString(3) + " - " + rs.getString(4) + " - "
+                    //    + rs.getString(5) + " - " + rs.getString(6) + " - "
+                      //  + rs.getString(7) + " - " + rs.getString(8) + " - "
+                        //+ rs.getString(9) + " - " + rs.getString(10));
 
                 //linea = rs.getString(2);
             }
