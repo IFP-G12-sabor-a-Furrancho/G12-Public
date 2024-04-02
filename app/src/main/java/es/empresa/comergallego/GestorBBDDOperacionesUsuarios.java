@@ -1,8 +1,14 @@
 package es.empresa.comergallego;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class GestorBBDDOperacionesUsuarios {
 
@@ -19,6 +25,31 @@ public class GestorBBDDOperacionesUsuarios {
                 s.close();
             }
         }
+    }
+
+    public static void insertarUsuario(Usuarios u, Connection bd) throws SQLException {
+        String sql = "INSERT INTO usuarios (nombreusuario, nombre, apellidos, fechanacimiento, correoelectronico, password, rolusuario) VALUES(?,?,?,?,?,?,?)";
+        PreparedStatement statement = bd.prepareStatement(sql);
+        statement.setString(1,u.getNombreUsuario());
+        statement.setString(2,u.getNombre());
+        statement.setString(3,u.getApellido());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        Date fechaNacimiento = null;
+        try {
+            fechaNacimiento = sdf.parse(u.getFechaNacimiento());
+        } catch (ParseException e) {
+            // Manejar el error de análisis de fecha
+            e.printStackTrace();
+            // Lanzar una excepción o manejar el error de alguna otra manera apropiada
+        }
+        java.sql.Date fechaNacimientoSql = new java.sql.Date(fechaNacimiento.getTime());
+        statement.setDate(4,fechaNacimientoSql);
+        statement.setString(5,u.getCorreoElectronico());
+        statement.setString(6,u.getPassword());
+        statement.setString(7, String.valueOf(u.getRolUsuario()));
+        statement.executeUpdate();
+
+
     }
 
     // Método para consultar usuarios
