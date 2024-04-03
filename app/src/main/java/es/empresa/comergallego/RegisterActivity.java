@@ -74,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     user= new Usuarios();
-                    user.UsuarioReg(textUserName.getText().toString(),textName.getText().toString(),textSurname.getText().toString(),textData.getText().toString(),textEmail.getText().toString(),textPass.getText().toString(),check1.isActivated());
+                    user.UsuarioReg(textUserName.getText().toString(),textName.getText().toString(),textSurname.getText().toString(),textData.getText().toString(),textEmail.getText().toString(),textPass.getText().toString(),check1.isChecked());
                     try {
                         bd  = DriverManager.getConnection(url, userBD, password);
                         GestorBBDDOperacionesUsuarios.insertarUsuario(user, bd);
