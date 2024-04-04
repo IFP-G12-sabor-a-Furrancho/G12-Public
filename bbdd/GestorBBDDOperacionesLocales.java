@@ -6,11 +6,152 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import java.util.ArrayList;
+
+/* Se debe de revisar el cierre de ResulSet (rs.close)
+Se debe de añadir el JDBC de Postgre en el Manifest.xml*/
 
 public class GestorBBDDOperacionesLocales {
 
 	public static void main(String[] args) {
 
+	//Código Gestor BBDDOperacionesLocales actualizado
+		GestorBBDD gestorBBDD;
+    //Definición de atributos
+    static String nombreTabla = "localizaciones";
+
+    //Constructor
+    public GestorBBDDOperacionesLocales(String url, String usuario, String contrasena) throws SQLException {
+        this.gestorBBDD = new GestorBBDD(url, usuario, contrasena);
+    }
+
+    // Método genérico para insertar, modificar, eliminar
+    public void insertarModificarEliminar(String consulta) throws SQLException {
+            gestorBBDD.getStatement().executeUpdate(consulta);
+            System.out.println("Operación realizada correctamente");
+    }
+
+    public String getLocales(Integer id) throws SQLException {
+        String nombreLocal = "";
+        String direccion = "";
+        String descripcion = "";
+        String tipoLocal = "";
+        String horario = "";
+        String telefono = "";
+        String coordenadasGPS = "";
+        String datosLocal = "";
+        Integer idLocal = 0;
+        String atributosLocal = "";
+
+
+            String consulta = "SELECT * FROM " + nombreTabla + " WHERE id=" + id;
+            ResultSet rs = gestorBBDD.getStatement().executeQuery(consulta);
+            System.out.println("Datos obtenidos correctamente");
+
+            while (rs.next()) {
+                idLocal = rs.getInt(1);
+                nombreLocal = rs.getCharacterStream(2).toString();
+                direccion = rs.getString(3);
+                descripcion = rs.getString(4);
+                tipoLocal = rs.getString(5);
+                horario = rs.getString(6);
+                telefono = rs.getString(7);
+                coordenadasGPS = rs.getString(8);
+
+                //Metemos todos los datos en un único String para rellenar los campos de la actividad 3C
+                datosLocal = Integer.toString(idLocal) + "-" + nombreLocal + "-" + direccion + "-" + descripcion + "-" + tipoLocal + "-" + horario + "-" + telefono + "-" + coordenadasGPS;
+            }
+            //No se cierra el statement por si se vuelve a ejecutar otra consulta
+        return datosLocal;
+    }
+		public ArrayList<String> getNombresLocales() throws SQLException {
+        ArrayList<String> filas = new ArrayList<>();
+        String nombreLocal = "";
+        Integer idLocal = 0;
+        String idNombreLocal = "";
+
+            String consulta = "SELECT * FROM " + nombreTabla + " ORDER BY id ASC";
+            ResultSet rs = gestorBBDD.getStatement().executeQuery(consulta);
+            System.out.println("Datos obtenidos correctamente");
+
+            while (rs.next()) {
+                idLocal = rs.getInt(1);
+                nombreLocal = rs.getCharacterStream(2).toString();
+                //De esta forma añadimos en la tabla el id y el nombre de los locales
+                idNombreLocal = Integer.toString(idLocal) + "-" + nombreLocal;
+                filas.add(idNombreLocal);
+            }
+       //No se cierra el statement por si se vuelve a ejecutar otra consulta
+
+        return filas;
+    }
+
+
+    //Métodos para crear un nuevo local
+
+    public void insertarNuevoLocal(String nombreLocal, String direccion, String descripcion, String tipoLocal, String horario, String telefono, String coordenadasGPS) throws SQLException {
+        String consulta = "INSERT INTO " + nombreTabla + " (nombreLocal, direccion, descripcion, tipoLocal, horario, telefono, coordenadasGPS) VALUES ('"
+                + nombreLocal + "', '"
+                + direccion + "', '"
+                + descripcion + "', '"
+                + tipoLocal + "', '"
+                + horario + "', '"
+                + telefono + "', '"
+                + coordenadasGPS + "')";
+        insertarModificarEliminar(consulta);
+    }
+
+
+    //Métodos para actualizar atributos de los locales
+
+    // Método para actualizar el nombre del local
+    public void actualizarNombreLocal(int idLocal, String nuevoNombreLocal) throws SQLException {
+        String consulta = "UPDATE " + nombreTabla + " SET nombreLocal = '" + nuevoNombreLocal + "' WHERE id_Local = '" + idLocal + "'";
+        insertarModificarEliminar(consulta);
+    }
+
+    // Método para actualizar la dirección
+    public void actualizarDireccion(int idLocal, String nuevaDireccion) throws SQLException {
+        String consulta = "UPDATE " + nombreTabla + " SET direccion = '" + nuevaDireccion + "' WHERE id_Local = '" + idLocal + "'";
+        insertarModificarEliminar(consulta);
+    }
+
+    // Método para actualizar la descripción
+    public void actualizarDescripcion(int idLocal, String nuevaDescripcion) throws SQLException {
+        String consulta = "UPDATE " + nombreTabla + " SET descripcion = '" + nuevaDescripcion + "' WHERE id_Local = '" + idLocal + "'";
+        insertarModificarEliminar(consulta);
+    }
+
+    // Método para actualizar el tipo de local (Furrancho o Pulpeiro)
+    public void actualizarTipoLocal(int idLocal, String nuevoTipoLocal) throws SQLException {
+        String consulta = "UPDATE " + nombreTabla + " SET tipoLocal = '" + nuevoTipoLocal + "' WHERE id_Local = '" + idLocal + "' AND (tipoLocal = 'Furrancho' OR tipoLocal = 'Pulpeiro')";
+        insertarModificarEliminar(consulta);
+    }
+
+    // Método para actualizar el horario
+    public void actualizarHorario(int idLocal, String nuevoHorario) throws SQLException {
+        String consulta = "UPDATE " + nombreTabla + " SET horario = '" + nuevoHorario + "' WHERE id_Local = '" + idLocal + "'";
+        insertarModificarEliminar(consulta);
+    }
+
+    // Método para actualizar el teléfono
+    public void actualizarTelefono(int idLocal, String nuevoTelefono) throws SQLException {
+        String consulta = "UPDATE " + nombreTabla + " SET telefono = '" + nuevoTelefono + "' WHERE id_Local = '" + idLocal + "'";
+        insertarModificarEliminar(consulta);
+    }
+
+    // Método para actualizar las coordenadas GPS
+    public void actualizarCoordenadasGPS(int idLocal, String nuevasCoordenadasGPS) throws SQLException {
+        String consulta = "UPDATE " + nombreTabla + " SET coordenadasGPS = '" + nuevasCoordenadasGPS + "' WHERE id_Local = '" + idLocal + "'";
+        insertarModificarEliminar(consulta);
+    }
+		
+	//--------------------------------------------------------------------------
+	//A partir de aquí si no se usa ningún método se puede eliminar este código
+	//El código empleado en las actividades 3B y 3C es el anterior
+	//--------------------------------------------------------------------------
+
+	
 		// Importamos el método scanner para introducir datos por pantalla
 		Scanner entradaDatos = new Scanner(System.in);
 
