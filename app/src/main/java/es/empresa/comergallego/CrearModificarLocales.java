@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.sql.SQLException;
 
 public class CrearModificarLocales extends AppCompatActivity {
 
@@ -46,6 +49,9 @@ public class CrearModificarLocales extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity3_c);
 
+        StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(threadPolicy);
+
         //Referenciamos los componentes
         label1 = (TextView) findViewById(R.id.label1_activity3c);
         caja1 = (EditText) findViewById(R.id.caja1_activity3c);
@@ -59,7 +65,12 @@ public class CrearModificarLocales extends AppCompatActivity {
         boton2 = (Button) findViewById(R.id.boton2_activity3c);
 
         // Creamos una instancia de GestorBBDDOperacionesLocales
-        bbddlocales = new GestorBBDDOperacionesLocales();
+
+        try {
+            bbddlocales = new GestorBBDOperacionesLocales();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
 
         // Recibimos los paquetes enviados desde la actividad anterior
@@ -99,9 +110,14 @@ public class CrearModificarLocales extends AppCompatActivity {
                         coordenadasGPS = String.valueOf(caja7.getText());
 
                         //Ahora utilizamos el método para crear un nuevo local
-                        bbddlocales.insertarNuevoLocal(nombreLocal, direccion, descripcion, tipoLocal, horario, telefono, coordenadasGPS);
+                        try {
+                            bbddlocales.insertarNuevoLocal(nombreLocal, direccion, descripcion, tipoLocal, horario, telefono, coordenadasGPS);
+                            Toast.makeText(es.empresa.comergallego.CrearModificarLocales.this, "Local creado correctamente", Toast.LENGTH_SHORT).show();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
 
-                        Toast.makeText(es.empresa.comergallego.CrearModificarLocales.this, "Local creado correctamente", Toast.LENGTH_SHORT).show();
+
                     }
 
 
@@ -115,7 +131,11 @@ public class CrearModificarLocales extends AppCompatActivity {
             boton1.setText("Modificar local");
 
             //Mediante el id, obtenemos todos los datos del local y los mostramos por pantalla, usando el método getLocales;
-            datosLocal = bbddlocales.getLocales(id);
+            try {
+                datosLocal = bbddlocales.getLocales(id);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
 
             datosLocalArray = datosLocal.split("-");
 
@@ -145,11 +165,13 @@ public class CrearModificarLocales extends AppCompatActivity {
                     if ((caja1.getText().equals(nombreLocal)) && (caja2.getText().equals(direccion)) && (caja3.getText().equals(descripcion)) && (caja4.getText().equals(tipoLocal)) && (caja5.getText().equals(horario)) && (caja6.getText().equals(telefono)) && (caja7.getText().equals(coordenadasGPS))) {
                         //En el caso de que no se hayan producido cambios, se muestra un mensaje por pantalla
                         Toast.makeText(es.empresa.comergallego.CrearModificarLocales.this, "Realice algún cambio antes de continuar", Toast.LENGTH_SHORT).show();
-                    } else {
+                    } else { try {
                         //Si se ha cambiado algún dato, se comprueba que dato se ha modificado y se ejecuta la/s consulta/s correspondiente/s
                         if (!(caja1.getText().equals(nombreLocal))) {
-                           bbddlocales.actualizarNombreLocal(id, caja1.getText().toString());
+
+                            bbddlocales.actualizarNombreLocal(id, caja1.getText().toString());
                         }
+
                         if (!(caja1.getText().equals(direccion))) {
                             bbddlocales.actualizarDireccion(id, caja2.getText().toString());
                         }
@@ -167,6 +189,9 @@ public class CrearModificarLocales extends AppCompatActivity {
                         }
                         if (!(caja1.getText().equals(telefono))) {
                             bbddlocales.actualizarCoordenadasGPS(id, caja1.getText().toString());
+                        } }
+                        catch(SQLException e){
+                            throw new RuntimeException(e);
                         }
                     }
                 }
@@ -176,13 +201,12 @@ public class CrearModificarLocales extends AppCompatActivity {
             boton2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent pasarPantalla = new Intent(es.empresa.comergallego.CrearModificarLocales.this, Activity3B.class);
+                    //Intent pasarPantalla = new Intent(es.empresa.comergallego.CrearModificarLocales.this, Activity3B.class);
+                    Intent pasarPantalla = new Intent(CrearModificarLocales.this, ListadoLocalesPropios.class);
                     startActivity(pasarPantalla);
                     finish();
                 }
             });
-
-
         }
     }
 }

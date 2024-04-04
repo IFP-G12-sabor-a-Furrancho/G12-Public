@@ -20,7 +20,7 @@ public class GestorBBDD {
         if (conn != null) {
             System.out.println("Conexión exitosa a la base de datos");
             //Revisar el Statement
-            s = conn.createStatement();
+            // s = conn.createStatement();
         }
     }
 
@@ -37,7 +37,7 @@ public class GestorBBDD {
 
     //SE HA AÑADIDO EL GETTER PARA ACCEDER AL STATEMENT
     // Getter para acceder al `Statement`
-    public Statement getS() {
-        return s;
-    }
+    //public Statement getS() {
+        //return s;
+    //}
 }

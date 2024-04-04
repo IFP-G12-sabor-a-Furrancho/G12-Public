@@ -21,10 +21,10 @@ public class GestorBBDOperacionesLocales{
     public GestorBBDOperacionesLocales() throws SQLException {
         //Inicializamos gestorBBDD para inicializar la conexión y el statement
         this.gestorBBDD = new GestorBBDD();
-        conn = DriverManager.getConnection(url, user, password);
-        if (conn != null) {
-            System.out.println("Conexión exitosa a la base de datos");
-        }
+        //conn = DriverManager.getConnection(url, user, password);
+        //if (conn != null) {
+          //  System.out.println("Conexión exitosa a la base de datos");
+        //}
     }
 
     //Revisar si se debería de quitar que se pase el atributo Statement
@@ -40,7 +40,9 @@ public class GestorBBDOperacionesLocales{
     }
 
     public void insertarModificarEliminar(String consulta) throws SQLException {
-        gestorBBDD.getS().executeUpdate(consulta);
+        s = conn.createStatement();
+        s.executeUpdate(consulta);
+        //gestorBBDD.getS().executeUpdate(consulta);
         System.out.println("Operación realizada correctamente");
     }
 
@@ -103,7 +105,9 @@ public class GestorBBDOperacionesLocales{
 
 
         String consulta = "SELECT * FROM " + nombreTabla + " WHERE id=" + id;
-        ResultSet rs = gestorBBDD.getS().executeQuery(consulta);
+        //ResultSet rs = gestorBBDD.getS().executeQuery(consulta);
+        s = conn.createStatement();
+        s.executeUpdate(consulta);
         System.out.println("Datos obtenidos correctamente");
 
         while (rs.next()) {
@@ -132,7 +136,9 @@ public class GestorBBDOperacionesLocales{
         String idNombreLocal = "";
 
         String consulta = "SELECT * FROM " + nombreTabla + " ORDER BY id ASC";
-        ResultSet rs = gestorBBDD.getS().executeQuery(consulta);
+        //ResultSet rs = gestorBBDD.getS().executeQuery(consulta);
+        s = conn.createStatement();
+        s.executeUpdate(consulta);
         System.out.println("Datos obtenidos correctamente");
 
         while (rs.next()) {
