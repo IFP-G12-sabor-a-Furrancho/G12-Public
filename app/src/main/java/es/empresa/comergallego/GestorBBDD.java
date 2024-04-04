@@ -35,6 +35,8 @@ public class GestorBBDD {
         }
     }
 
+
+
     //SE HA AÑADIDO EL GETTER PARA ACCEDER AL STATEMENT
     // Getter para acceder al `Statement`
     //public Statement getS() {
