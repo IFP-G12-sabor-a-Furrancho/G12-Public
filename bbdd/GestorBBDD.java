@@ -13,6 +13,7 @@ import java.sql.SQLException;
 public class GestorBBDD {
 
     private Connection conexion;
+    private Statement statemetn;
 
     /**
      * Método para conectar a la base de datos.
@@ -21,6 +22,12 @@ public class GestorBBDD {
      * @param usuario  Nombre de usuario para la conexión.
      * @param contrasena Contraseña para la conexión.
      */
+
+    //Constructor
+    public GestorBBDD(String url, String usuario, String contrasena) throws SQLException {
+        conectarBBDD(url, usuario, contrasena);
+    }
+    
     public void conectarBBDD(String url, String usuario, String contrasena) {
         try {
          
@@ -29,6 +36,7 @@ public class GestorBBDD {
 
             if (conexion != null) {
                 System.out.println("Conexión exitosa a la base de datos");
+                statement = conexion.createStatement();
             }
 
         } catch (SQLException e) {
@@ -48,6 +56,11 @@ public class GestorBBDD {
         } catch (SQLException e) {
             System.err.println("Error al desconectar de la base de datos: " + e.getMessage());
         }
+    }
+
+    // Getter para acceder al `Statement`
+    public Statement getStatement() {
+        return statement;
     }
 
     /**
