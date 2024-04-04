@@ -49,7 +49,6 @@ public class GestorBBDDOperacionesUsuarios {
         statement.setString(7, String.valueOf(u.getRolUsuario()));
         statement.executeUpdate();
 
-
     }
 
     // Método para consultar usuarios

@@ -1,4 +1,4 @@
-package es.ifp.proyectodamalberto;
+package es.empresa.comergallego;
 
 import androidx.appcompat.app.AppCompatActivity;
 
