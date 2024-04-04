@@ -2,7 +2,6 @@ package es.empresa.comergallego;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -20,6 +19,8 @@ public class GestorBBDD {
         conn= DriverManager.getConnection(url, user, password);
         if (conn != null) {
             System.out.println("Conexión exitosa a la base de datos");
+            //Revisar el Statement
+            s = conn.createStatement();
         }
     }
 
@@ -32,5 +33,11 @@ public class GestorBBDD {
         } catch (SQLException e) {
             System.err.println("Error al desconectar de la base de datos: " + e.getMessage());
         }
+    }
+
+    //SE HA AÑADIDO EL GETTER PARA ACCEDER AL STATEMENT
+    // Getter para acceder al `Statement`
+    public Statement getS() {
+        return s;
     }
 }

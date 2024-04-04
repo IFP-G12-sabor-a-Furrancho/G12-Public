@@ -10,10 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.SQLException;
-import java.sql.Statement;
-
-public class Activity3C extends AppCompatActivity {
+public class CrearModificarLocales extends AppCompatActivity {
 
     private boolean crear;
     private int id;
@@ -38,7 +35,7 @@ public class Activity3C extends AppCompatActivity {
     private EditText caja7;
     private Button boton1;
     private Button boton2;
-    GestorBBDDOperacionesLocales bbddlocales;
+    GestorBBDOperacionesLocales bbddlocales;
     final String url = "jdbc:postgresql://ep-nameless-snow-71296629.eu-central-1.aws.neon.fl0.io:5432/comergallego-Alberto?sslmode=require";
     String usuario = "fl0user";
     String contrasena = "lpEWc0JdMgK4";
@@ -62,11 +59,7 @@ public class Activity3C extends AppCompatActivity {
         boton2 = (Button) findViewById(R.id.boton2_activity3c);
 
         // Creamos una instancia de GestorBBDDOperacionesLocales
-        try {
-            bbddlocales = new GestorBBDDOperacionesLocales(url, usuario, contrasena);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        bbddlocales = new GestorBBDDOperacionesLocales();
 
 
         // Recibimos los paquetes enviados desde la actividad anterior
@@ -95,7 +88,7 @@ public class Activity3C extends AppCompatActivity {
                 public void onClick(View view) {
 
                     if (label1.equals("") || caja1.equals("") || caja2.equals("") || caja3.equals("") || caja4.equals("") || caja5.equals("") || caja6.equals("") || caja7.equals("")) {
-                        Toast.makeText(Activity3C.this, "Local creado correctamente", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(es.empresa.comergallego.CrearModificarLocales.this, "Local creado correctamente", Toast.LENGTH_SHORT).show();
                     } else {
                         nombreLocal = String.valueOf(caja1.getText());
                         direccion = String.valueOf(caja2.getText());
@@ -106,12 +99,9 @@ public class Activity3C extends AppCompatActivity {
                         coordenadasGPS = String.valueOf(caja7.getText());
 
                         //Ahora utilizamos el método para crear un nuevo local
-                        try {
-                            bbddlocales.insertarNuevoLocal(nombreLocal, direccion, descripcion, tipoLocal, horario, telefono, coordenadasGPS);
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        Toast.makeText(Activity3C.this, "Local creado correctamente", Toast.LENGTH_SHORT).show();
+                        bbddlocales.insertarNuevoLocal(nombreLocal, direccion, descripcion, tipoLocal, horario, telefono, coordenadasGPS);
+
+                        Toast.makeText(es.empresa.comergallego.CrearModificarLocales.this, "Local creado correctamente", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -125,11 +115,8 @@ public class Activity3C extends AppCompatActivity {
             boton1.setText("Modificar local");
 
             //Mediante el id, obtenemos todos los datos del local y los mostramos por pantalla, usando el método getLocales;
-            try {
-                datosLocal = bbddlocales.getLocales(id);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            datosLocal = bbddlocales.getLocales(id);
+
             datosLocalArray = datosLocal.split("-");
 
             //Empezamos obteniendo los datos desde la posicion 1 y no la 0 porque no nos interesa el ID
@@ -157,61 +144,31 @@ public class Activity3C extends AppCompatActivity {
                 public void onClick(View view) {
                     if ((caja1.getText().equals(nombreLocal)) && (caja2.getText().equals(direccion)) && (caja3.getText().equals(descripcion)) && (caja4.getText().equals(tipoLocal)) && (caja5.getText().equals(horario)) && (caja6.getText().equals(telefono)) && (caja7.getText().equals(coordenadasGPS))) {
                         //En el caso de que no se hayan producido cambios, se muestra un mensaje por pantalla
-                        Toast.makeText(Activity3C.this, "Realice algún cambio antes de continuar", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(es.empresa.comergallego.CrearModificarLocales.this, "Realice algún cambio antes de continuar", Toast.LENGTH_SHORT).show();
                     } else {
                         //Si se ha cambiado algún dato, se comprueba que dato se ha modificado y se ejecuta la/s consulta/s correspondiente/s
-                        if (!(caja1.getText().equals(nombreLocal))){
-                            try {
-                                bbddlocales.actualizarNombreLocal(id, caja1.getText().toString());
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            }
+                        if (!(caja1.getText().equals(nombreLocal))) {
+                           bbddlocales.actualizarNombreLocal(id, caja1.getText().toString());
                         }
-                        if (!(caja1.getText().equals(direccion))){
-                            try {
-                                bbddlocales.actualizarDireccion(id, caja2.getText().toString());
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            }
+                        if (!(caja1.getText().equals(direccion))) {
+                            bbddlocales.actualizarDireccion(id, caja2.getText().toString());
                         }
-                        if (!(caja1.getText().equals(descripcion))){
-                            try {
-                                bbddlocales.actualizarDescripcion(id, caja1.getText().toString());
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            }
+                        if (!(caja1.getText().equals(descripcion))) {
+                            bbddlocales.actualizarDescripcion(id, caja1.getText().toString());
                         }
-                        if (!(caja1.getText().equals(tipoLocal))){
-                            try {
-                                bbddlocales.actualizarTipoLocal(id, caja1.getText().toString());
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            }
+                        if (!(caja1.getText().equals(tipoLocal))) {
+                            bbddlocales.actualizarTipoLocal(id, caja1.getText().toString());
                         }
-                        if (!(caja1.getText().equals(horario))){
-                            try {
-                                bbddlocales.actualizarHorario(id, caja1.getText().toString());
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            }
+                        if (!(caja1.getText().equals(horario))) {
+                            bbddlocales.actualizarHorario(id, caja1.getText().toString());
                         }
-                        if (!(caja1.getText().equals(telefono))){
-                            try {
-                                bbddlocales.actualizarTelefono(id, caja1.getText().toString());
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            }
+                        if (!(caja1.getText().equals(telefono))) {
+                            bbddlocales.actualizarTelefono(id, caja1.getText().toString());
                         }
-                        if (!(caja1.getText().equals(telefono))){
-                            try {
-                                bbddlocales.actualizarCoordenadasGPS(id, caja1.getText().toString());
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            }
+                        if (!(caja1.getText().equals(telefono))) {
+                            bbddlocales.actualizarCoordenadasGPS(id, caja1.getText().toString());
                         }
-
                     }
-
                 }
             });
 
@@ -219,7 +176,7 @@ public class Activity3C extends AppCompatActivity {
             boton2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent pasarPantalla=new Intent(Activity3C.this, Activity3B.class);
+                    Intent pasarPantalla = new Intent(es.empresa.comergallego.CrearModificarLocales.this, Activity3B.class);
                     startActivity(pasarPantalla);
                     finish();
                 }

@@ -11,13 +11,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
-public class Activity3B extends AppCompatActivity {
+public class ListadoLocalesPropios extends AppCompatActivity {
 
     //Definición de atributos
     private ListView lista1;
@@ -25,7 +24,7 @@ public class Activity3B extends AppCompatActivity {
     private ArrayList<String> nombres;
     private ArrayAdapter<String> adaptador = null;
     private boolean crear=false;
-    GestorBBDDOperacionesLocales bbddlocales;
+    GestorBBDOperacionesLocales bbddlocales;
     final String url = "jdbc:postgresql://ep-nameless-snow-71296629.eu-central-1.aws.neon.fl0.io:5432/comergallego-Alberto?sslmode=require";
     String usuario = "fl0user";
     String contrasena = "lpEWc0JdMgK4";
@@ -40,22 +39,15 @@ public class Activity3B extends AppCompatActivity {
         //Referenciamos componentes
         lista1 = (ListView) findViewById(R.id.lista1_Activity3b);
 
-        // Creamos una instancia de GestorBBDDOperacionesLocales
         try {
-            bbddlocales = new GestorBBDDOperacionesLocales(url, usuario, contrasena);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        //Obtenemos los nombres de la base de datos y las almacenamos en el ArrayList nombres
-
-        //Revisar el statement
-        try {
+            // Creamos una instancia de GestorBBDDOperacionesLocales
+            bbddlocales = new GestorBBDDOperacionesLocales();
             nombres = bbddlocales.getNombresLocales();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            Toast.makeText(es.empresa.comergallego.Activity3B.this, "Error al conectar a la BBDD", Toast.LENGTH_SHORT).show();
         }
+
         //Creamos y Asignamos el ArrayLlist al adaptador
         adaptador = new ArrayAdapter<String>(Activity3B.this, android.R.layout.simple_list_item_1, nombres);
         //Asignamos el adaptador al ListView
