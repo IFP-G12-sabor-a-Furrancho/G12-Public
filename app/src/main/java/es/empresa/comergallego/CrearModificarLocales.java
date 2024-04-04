@@ -66,9 +66,12 @@ public class CrearModificarLocales extends AppCompatActivity {
 
         // Creamos una instancia de GestorBBDDOperacionesLocales
 
+        //Constructor vacío no necesita (de momento) try y catch
+
         try {
             bbddlocales = new GestorBBDOperacionesLocales();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
 

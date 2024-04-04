@@ -20,11 +20,16 @@ public class GestorBBDOperacionesLocales{
     //Constructor
     public GestorBBDOperacionesLocales() throws SQLException {
         //Inicializamos gestorBBDD para inicializar la conexión y el statement
-        this.gestorBBDD = new GestorBBDD();
-        //conn = DriverManager.getConnection(url, user, password);
-        //if (conn != null) {
-          //  System.out.println("Conexión exitosa a la base de datos");
-        //}
+
+        //Comentamos como prueba, no es necesario llamar al constructor
+        // si creamos en este punto la conexión (linea 29)
+        //this.gestorBBDD = new GestorBBDD();
+
+
+        conn = DriverManager.getConnection(url, user, password);
+        if (conn != null) {
+            System.out.println("Conexión exitosa a la base de datos");
+        }
     }
 
     //Revisar si se debería de quitar que se pase el atributo Statement
@@ -45,6 +50,8 @@ public class GestorBBDOperacionesLocales{
         //gestorBBDD.getS().executeUpdate(consulta);
         System.out.println("Operación realizada correctamente");
     }
+
+
 
     //Método para obtener NombreLocal y Direccion - Funcionamiento del buscador
     public ArrayList<String> consulta(String nombrelocal) throws SQLException {
