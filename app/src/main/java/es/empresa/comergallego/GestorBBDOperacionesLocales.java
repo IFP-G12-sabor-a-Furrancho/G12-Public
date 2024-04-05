@@ -213,4 +213,24 @@ public class GestorBBDOperacionesLocales{
         String consulta = "UPDATE " + nombreTabla + " SET coordenadasGPS = '" + nuevasCoordenadasGPS + "' WHERE id_localizacion = '" + idLocal + "'";
         insertarModificarEliminar(consulta);
     }
+
+    public void insertarTablaIntermedia(int idUsuario) throws SQLException {
+        int idLocalizacion=0;
+
+        try (PreparedStatement statementId = conn.prepareStatement("SELECT currval('localizaciones_id_localizacion_seq')")) {
+            try (ResultSet rs = statementId.executeQuery()) {
+                rs.next();
+                idLocalizacion = rs.getInt(1);
+            }
+        }
+        // Inserta la relación entre el usuario y el local en la tabla intermedia usuarios_localizaciones
+        String consultaRelacion = "INSERT INTO usuarios_localizaciones (id_usuario, id_localizacion) VALUES (?, ?)";
+        try (PreparedStatement statementRelacion = conn.prepareStatement(consultaRelacion)) {
+            statementRelacion.setInt(1, idUsuario);
+            statementRelacion.setInt(2, idLocalizacion);
+            statementRelacion.executeUpdate();
+        }
+
+        System.out.println("Local insertado correctamente y asociado al usuario.");
+    }
 }

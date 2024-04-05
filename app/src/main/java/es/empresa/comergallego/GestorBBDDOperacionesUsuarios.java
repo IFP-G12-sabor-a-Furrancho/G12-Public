@@ -155,6 +155,24 @@ public class GestorBBDDOperacionesUsuarios {
         return rol;
     }
 
+    public String consultaIDAdministrador(String nombreUsuario) throws SQLException {
+        String id = "";
+
+        String consulta = "SELECT id_usuario FROM " + nombreTabla + " WHERE nombreusuario = ?";
+        PreparedStatement statement = conn.prepareStatement(consulta);
+        statement.setString(1, nombreUsuario);
+
+        try (ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                id = rs.getString("id_usuario");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return id;
+    }
+
 }
 
 

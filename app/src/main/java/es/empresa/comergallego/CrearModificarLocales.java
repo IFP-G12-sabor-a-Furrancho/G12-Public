@@ -38,10 +38,13 @@ public class CrearModificarLocales extends AppCompatActivity {
     private EditText caja7;
     private Button boton1;
     private Button boton2;
+    private int idUser=0;
     GestorBBDOperacionesLocales bbddlocales;
+    GestorBBDDOperacionesUsuarios bbddUsuarios;
     final String url = "jdbc:postgresql://ep-nameless-snow-71296629.eu-central-1.aws.neon.fl0.io:5432/comergallego-Alberto?sslmode=require";
     String usuario = "fl0user";
     String contrasena = "lpEWc0JdMgK4";
+    private String paquete="";
 
 
     @Override
@@ -70,6 +73,7 @@ public class CrearModificarLocales extends AppCompatActivity {
 
         try {
             bbddlocales = new GestorBBDOperacionesLocales();
+            bbddUsuarios = new GestorBBDDOperacionesUsuarios();
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -78,9 +82,12 @@ public class CrearModificarLocales extends AppCompatActivity {
 
         // Recibimos los paquetes enviados desde la actividad anterior
         extras = getIntent().getExtras();
+        if (extras!=null) {
+            paquete = extras.getString("NOMBREUSUARIO");
+            crear = extras.getBoolean("crear");
+            id = extras.getInt("id");
+        }
 
-        crear = extras.getBoolean("crear");
-        id = extras.getInt("id");
 
         if (crear) {
             // Código para crear un local
@@ -95,6 +102,9 @@ public class CrearModificarLocales extends AppCompatActivity {
             caja6.setHint("Telefono");
             caja7.setHint("Coordenadas GPS");
             boton1.setText("Crear local");
+
+
+
 
 
             boton1.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +125,11 @@ public class CrearModificarLocales extends AppCompatActivity {
                         //Ahora utilizamos el método para crear un nuevo local
                         try {
                             bbddlocales.insertarNuevoLocal(nombreLocal, direccion, descripcion, tipoLocal, horario, telefono, coordenadasGPS);
+
+                            idUser = Integer.parseInt(bbddUsuarios.consultaIDAdministrador(paquete));
+
+                            bbddlocales.insertarTablaIntermedia(idUser);
+
                             Toast.makeText(es.empresa.comergallego.CrearModificarLocales.this, "Local creado correctamente", Toast.LENGTH_SHORT).show();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);

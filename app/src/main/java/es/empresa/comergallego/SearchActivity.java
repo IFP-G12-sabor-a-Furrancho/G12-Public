@@ -95,7 +95,10 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         switch (item.getItemId()) {
             case R.id.item_menu_locales:
                 Intent intent = new Intent(SearchActivity.this, ListadoLocalesPropios.class);
+                intent.putExtra("NOMBREUSUARIO",paquete);
                 startActivity(intent);
+
+
                 finish();
                 return true;
             case R.id.item_menu_usuario:

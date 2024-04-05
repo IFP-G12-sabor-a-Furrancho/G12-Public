@@ -29,6 +29,8 @@ public class ListadoLocalesPropios extends AppCompatActivity {
     final String url = "jdbc:postgresql://ep-nameless-snow-71296629.eu-central-1.aws.neon.fl0.io:5432/comergallego-Alberto?sslmode=require";
     String usuario = "fl0user";
     String contrasena = "lpEWc0JdMgK4";
+    protected Bundle extras;
+    private String paquete="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,13 @@ public class ListadoLocalesPropios extends AppCompatActivity {
 
         //Referenciamos componentes
         lista1 = (ListView) findViewById(R.id.lista1_Activity3b);
+
+        extras = getIntent().getExtras();
+
+        if (extras!=null) {
+            paquete = extras.getString("NOMBREUSUARIO");
+        }
+
 
         try {
             // Creamos una instancia de GestorBBDDOperacionesLocales
@@ -86,6 +95,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
                 pasarPantalla.putExtra("id", idLocal);
                 // Pasamos el valor booleano como paquete para indicar que queremos modificar un local y no crearlo
                 pasarPantalla.putExtra("crear", crear);
+
                 startActivity(pasarPantalla);
                 //Al pasar de pantalla, debemos de recibir el paquete con el nombre en la otra actividad, buscar en la BBDD con el id que mandamos
             }
@@ -110,6 +120,8 @@ public class ListadoLocalesPropios extends AppCompatActivity {
                 //En el caso de que deseemos crear un nuevo local, la actividad 3C se deberá de mostrar vacía
                 Boolean crear=true;
                 pasarPantalla.putExtra("crear", crear);
+                pasarPantalla.putExtra("NOMBREUSUARIO", paquete);
+
                 startActivity(pasarPantalla);
                 finish();
                 return true;
