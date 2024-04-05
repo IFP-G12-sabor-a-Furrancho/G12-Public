@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     protected Button button2;
     private GestorBBDD bd;
 
+
     private Intent pasarPantalla;
 
     @Override
@@ -52,8 +53,10 @@ public class LoginActivity extends AppCompatActivity {
                     boolean loginExitoso = GestorBBDDOperacionesUsuarios.consultarLogin(caja1.getText().toString().toLowerCase(),caja2.getText().toString(), bd);
                     if (loginExitoso){
                         Toast.makeText(LoginActivity.this, "Login Exitoso", Toast.LENGTH_SHORT).show();
+
                         bd.desconectarBBDD();
                         Intent intent = new Intent(LoginActivity.this, SearchActivity.class);
+                        pasarPantalla.putExtra("NOMBREUSUARIO",caja1.getText().toString());
                         //Intent intent = new Intent(StartActivity.this, SearchActivity.class);
                         startActivity(intent);
                         finish();
