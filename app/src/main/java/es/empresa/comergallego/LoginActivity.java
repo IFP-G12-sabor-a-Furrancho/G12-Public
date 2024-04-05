@@ -55,10 +55,10 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Login Exitoso", Toast.LENGTH_SHORT).show();
 
                         bd.desconectarBBDD();
-                        Intent intent = new Intent(LoginActivity.this, SearchActivity.class);
+                        pasarPantalla = new Intent(LoginActivity.this, SearchActivity.class);
                         pasarPantalla.putExtra("NOMBREUSUARIO",caja1.getText().toString());
                         //Intent intent = new Intent(StartActivity.this, SearchActivity.class);
-                        startActivity(intent);
+                        startActivity(pasarPantalla);
                         finish();
 
                     }
