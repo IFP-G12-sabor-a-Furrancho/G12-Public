@@ -83,7 +83,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
     }
 
     //Codigo del menu
-    /**@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_ListadoLocales, menu);
@@ -104,5 +104,5 @@ public class ListadoLocalesPropios extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }**/
+    }
 }
