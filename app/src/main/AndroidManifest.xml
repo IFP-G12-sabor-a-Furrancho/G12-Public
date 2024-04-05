@@ -30,10 +30,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity3C"
+            android:name=".CrearModificarLocales"
             android:exported="false" />
         <activity
-            android:name=".Activity3B"
+            android:name=".ListadoLocalesPropios"
             android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

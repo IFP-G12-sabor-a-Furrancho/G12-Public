@@ -44,11 +44,20 @@ public class ListadoLocalesPropios extends AppCompatActivity {
         try {
             // Creamos una instancia de GestorBBDDOperacionesLocales
             bbddlocales = new GestorBBDOperacionesLocales();
-            nombres = bbddlocales.getNombresLocales();
+
+            //bbddlocales = new GestorBBDOperacionesLocales();
+
         } catch (SQLException e) {
             e.printStackTrace();
             Toast.makeText(ListadoLocalesPropios.this, "Error al conectar a la BBDD", Toast.LENGTH_SHORT).show();
         }
+
+        try {
+            nombres = bbddlocales.getNombresLocales();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
 
         //Creamos y Asignamos el ArrayLlist al adaptador
         adaptador = new ArrayAdapter<String>(ListadoLocalesPropios.this, android.R.layout.simple_list_item_1, nombres);
