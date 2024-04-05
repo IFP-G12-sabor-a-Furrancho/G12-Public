@@ -86,7 +86,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_listadolocales, menu);
+        inflater.inflate(R.menu.menu_locales_propios, menu);
         return true;
     }
 
@@ -94,7 +94,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.CrearLocal_menu:
+            case R.id.crearLocal_menu:
                 //Pasamos a la actividad 3C para crear un nuevo local
                 Intent pasarPantalla = new Intent(ListadoLocalesPropios.this, CrearModificarLocales.class);
                 //En el caso de que deseemos crear un nuevo local, la actividad 3C se deberá de mostrar vacía
