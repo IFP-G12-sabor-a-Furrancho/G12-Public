@@ -26,8 +26,8 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
+        android:hint="NombreLocal"
         android:inputType="text"
-        android:text="NombreLocal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label1_activity3c" />
@@ -40,8 +40,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
+        android:hint="Dirección"
         android:inputType="text"
-        android:text="Dirección"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caja1_activity3c" />
@@ -54,8 +54,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
+        android:hint="Descripción"
         android:inputType="text"
-        android:text="Descripción"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caja2_activity3c" />
@@ -68,8 +68,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
+        android:hint="TipoLocal"
         android:inputType="text"
-        android:text="TipoLocal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caja3_activity3c" />
@@ -82,8 +82,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
+        android:hint="Horario"
         android:inputType="text"
-        android:text="Horario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caja4_activity3c" />
@@ -96,8 +96,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
+        android:hint="Telefono"
         android:inputType="text"
-        android:text="Telefono"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caja5_activity3c" />
@@ -110,8 +110,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
+        android:hint="Coordenadas GPS"
         android:inputType="text"
-        android:text="Coordenadas GPS"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caja6_activity3c" />

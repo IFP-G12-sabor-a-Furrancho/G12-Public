@@ -55,6 +55,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
         try {
             nombres = bbddlocales.getNombresLocales();
         } catch (SQLException e) {
+            Toast.makeText(this, "Error al ejecutar el método getNombreLocales", Toast.LENGTH_SHORT).show();
             throw new RuntimeException(e);
         }
 
@@ -109,6 +110,8 @@ public class ListadoLocalesPropios extends AppCompatActivity {
                 //En el caso de que deseemos crear un nuevo local, la actividad 3C se deberá de mostrar vacía
                 Boolean crear=true;
                 pasarPantalla.putExtra("crear", crear);
+                startActivity(pasarPantalla);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -126,6 +126,15 @@ public class CrearModificarLocales extends AppCompatActivity {
 
                 }
             });
+            boton2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Intent pasarPantalla = new Intent(es.empresa.comergallego.CrearModificarLocales.this, Activity3B.class);
+                    Intent pasarPantalla = new Intent(CrearModificarLocales.this, ListadoLocalesPropios.class);
+                    startActivity(pasarPantalla);
+                    finish();
+                }
+            });
 
 
         } else {
@@ -151,14 +160,23 @@ public class CrearModificarLocales extends AppCompatActivity {
             telefono = datosLocalArray[6];
             coordenadasGPS = datosLocalArray[7];
 
+            String[] datos = {nombreLocal, direccion, descripcion, tipoLocal, horario, telefono, coordenadasGPS};
+
+            for (int i = 0; i < datos.length; i++) {
+                if (datos[i].equals("null")) {
+                    datos[i] = "No existen datos";
+                }
+            }
+
+
             //Mostramos los datos en las cajas de texto
-            caja1.setText(nombreLocal);
-            caja2.setText(direccion);
-            caja3.setText(descripcion);
-            caja4.setText(tipoLocal);
-            caja5.setText(horario);
-            caja6.setText(telefono);
-            caja7.setText(coordenadasGPS);
+            caja1.setText(datos[0]);
+            caja2.setText(datos[1]);
+            caja3.setText(datos[2]);
+            caja4.setText(datos[3]);
+            caja5.setText(datos[4]);
+            caja6.setText(datos[5]);
+            caja7.setText(datos[6]);
             boton1 = (Button) findViewById(R.id.boton1_activity3c);
 
             //Una vez mostrados los datos el usuario puede modificarlos
@@ -175,23 +193,23 @@ public class CrearModificarLocales extends AppCompatActivity {
                             bbddlocales.actualizarNombreLocal(id, caja1.getText().toString());
                         }
 
-                        if (!(caja1.getText().equals(direccion))) {
+                        if (!(caja2.getText().equals(direccion))) {
                             bbddlocales.actualizarDireccion(id, caja2.getText().toString());
                         }
-                        if (!(caja1.getText().equals(descripcion))) {
-                            bbddlocales.actualizarDescripcion(id, caja1.getText().toString());
+                        if (!(caja3.getText().equals(descripcion))) {
+                            bbddlocales.actualizarDescripcion(id, caja3.getText().toString());
                         }
-                        if (!(caja1.getText().equals(tipoLocal))) {
-                            bbddlocales.actualizarTipoLocal(id, caja1.getText().toString());
+                        if (!(caja4.getText().equals(tipoLocal))) {
+                            bbddlocales.actualizarTipoLocal(id, caja4.getText().toString());
                         }
-                        if (!(caja1.getText().equals(horario))) {
-                            bbddlocales.actualizarHorario(id, caja1.getText().toString());
+                        if (!(caja5.getText().equals(horario))) {
+                            bbddlocales.actualizarHorario(id, caja5.getText().toString());
                         }
-                        if (!(caja1.getText().equals(telefono))) {
-                            bbddlocales.actualizarTelefono(id, caja1.getText().toString());
+                        if (!(caja6.getText().equals(telefono))) {
+                            bbddlocales.actualizarTelefono(id, caja6.getText().toString());
                         }
-                        if (!(caja1.getText().equals(telefono))) {
-                            bbddlocales.actualizarCoordenadasGPS(id, caja1.getText().toString());
+                        if (!(caja7.getText().equals(coordenadasGPS))) {
+                            bbddlocales.actualizarCoordenadasGPS(id, caja7.getText().toString());
                         } }
                         catch(SQLException e){
                             throw new RuntimeException(e);
