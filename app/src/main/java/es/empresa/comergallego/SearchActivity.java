@@ -2,8 +2,12 @@ package es.empresa.comergallego;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,6 +28,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     protected ListView lista1;
     private ArrayList<String> localizaciones = new ArrayList<String>();
     private ArrayAdapter<String> adaptador;
+    private Intent pasarPantalla;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,5 +72,29 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     @Override
     public boolean onQueryTextChange(String newText) {
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection.
+        switch (item.getItemId()) {
+            case R.id.item_menu_locales:
+                Intent intent = new Intent(SearchActivity.this, ListadoLocalesPropios.class);
+                startActivity(intent);
+                finish();
+                return true;
+            case R.id.item_menu_usuario:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
