@@ -36,7 +36,7 @@ public class StartActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(StartActivity.this, SearchActivity.class);
+                Intent intent = new Intent(StartActivity.this, LoginActivity.class);
                 //Intent intent = new Intent(StartActivity.this, SearchActivity.class);
                 startActivity(intent);
                 finish();

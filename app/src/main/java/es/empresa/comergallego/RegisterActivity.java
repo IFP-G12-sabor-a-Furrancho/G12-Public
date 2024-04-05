@@ -33,18 +33,17 @@ public class RegisterActivity extends AppCompatActivity {
     protected  EditText textUserName;
     protected  EditText textEmail;
 
-    private  Connection bd;
+
     private Usuarios user;
 
     protected Button buttonReg;
+    protected GestorBBDD bd;
 
     private Intent pasaPantalla;
 
     protected CheckBox check1;
 
-    protected String url = "jdbc:postgresql://ep-shy-glade-57906898.eu-central-1.aws.neon.fl0.io:5432/comergallego";
-    protected String userBD = "fl0user";
-    protected String password = "8Zizcvy1rMhs";
+
 
 
     @Override
@@ -67,17 +66,23 @@ public class RegisterActivity extends AppCompatActivity {
             textUserName= findViewById(R.id.text6_register);
             textEmail= findViewById(R.id.text7_register);
 
-
+            //Llamada a Metodo para mostrar el calendario al seleccionar la fecha
             textData.setOnClickListener(v1 -> showDatePickerDialog());
 
             buttonReg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     user= new Usuarios();
-                    user.UsuarioReg(textUserName.getText().toString(),textName.getText().toString(),textSurname.getText().toString(),textData.getText().toString(),textEmail.getText().toString(),textPass.getText().toString(),check1.isChecked());
+                    user.UsuarioReg(textUserName.getText().toString().toLowerCase(),textName.getText().toString(),textSurname.getText().toString(),textData.getText().toString(),textEmail.getText().toString(),textPass.getText().toString(),check1.isChecked());
                     try {
-                        bd  = DriverManager.getConnection(url, userBD, password);
-                        GestorBBDDOperacionesUsuarios.insertarUsuario(user, bd);
+                        bd= new GestorBBDD();
+                        boolean insercionExitosa= GestorBBDDOperacionesUsuarios.insertarUsuario(user, bd);
+                        if (insercionExitosa){
+                            Toast.makeText(RegisterActivity.this, "Usuario Creado", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(RegisterActivity.this, "Error al Crear usuario", Toast.LENGTH_SHORT).show();
+                        }
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
@@ -87,6 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
     }
+    // Metodo para seleccionar la fecha
     private void showDatePickerDialog() {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);

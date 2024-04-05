@@ -43,7 +43,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         try {
 
 
-            bd = new GestorBBDD();
+            //bd = new GestorBBDD();
 
             Toast.makeText(SearchActivity.this, "Exito", Toast.LENGTH_SHORT).show();
 
@@ -55,7 +55,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
 
 
-            bd.desconectarBBDD();
+            //bd.desconectarBBDD();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

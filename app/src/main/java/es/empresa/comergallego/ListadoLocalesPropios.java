@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,25 +32,26 @@ public class ListadoLocalesPropios extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity3_b);
+
+        StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(threadPolicy);
 
         //Referenciamos componentes
         lista1 = (ListView) findViewById(R.id.lista1_Activity3b);
 
         try {
             // Creamos una instancia de GestorBBDDOperacionesLocales
-            bbddlocales = new GestorBBDDOperacionesLocales();
+            bbddlocales = new GestorBBDOperacionesLocales();
             nombres = bbddlocales.getNombresLocales();
         } catch (SQLException e) {
             e.printStackTrace();
-            Toast.makeText(es.empresa.comergallego.Activity3B.this, "Error al conectar a la BBDD", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ListadoLocalesPropios.this, "Error al conectar a la BBDD", Toast.LENGTH_SHORT).show();
         }
 
         //Creamos y Asignamos el ArrayLlist al adaptador
-        adaptador = new ArrayAdapter<String>(Activity3B.this, android.R.layout.simple_list_item_1, nombres);
+        adaptador = new ArrayAdapter<String>(ListadoLocalesPropios.this, android.R.layout.simple_list_item_1, nombres);
         //Asignamos el adaptador al ListView
         lista1.setAdapter(adaptador);
 
@@ -69,7 +71,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
                 // Usamos partes[0] porque es la parte que contiene el ID
                 int idLocal = Integer.parseInt(partes[0]);
 
-                Intent pasarPantalla = new Intent(Activity3B.this, Activity3C.class);
+                Intent pasarPantalla = new Intent(ListadoLocalesPropios.this, CrearModificarLocales.class);
                 //Pasamos el id del local seleccionado como paquete
                 pasarPantalla.putExtra("id", idLocal);
                 // Pasamos el valor booleano como paquete para indicar que queremos modificar un local y no crearlo
@@ -81,7 +83,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
     }
 
     //Codigo del menu
-    @Override
+    /**@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_ListadoLocales, menu);
@@ -94,7 +96,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.CrearLocal_menu:
                 //Pasamos a la actividad 3C para crear un nuevo local
-                Intent pasarPantalla = new Intent(Activity3B.this, Activity3C.class);
+                Intent pasarPantalla = new Intent(ListadoLocalesPropios.this, CrearModificarLocales.class);
                 //En el caso de que deseemos crear un nuevo local, la actividad 3C se deberá de mostrar vacía
                 Boolean crear=true;
                 pasarPantalla.putExtra("crear", crear);
@@ -102,5 +104,5 @@ public class ListadoLocalesPropios extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }**/
 }
