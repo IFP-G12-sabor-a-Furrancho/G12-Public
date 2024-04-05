@@ -86,7 +86,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_ListadoLocales, menu);
+        inflater.inflate(R.menu.menu_listadolocales, menu);
         return true;
     }
 

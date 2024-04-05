@@ -79,6 +79,10 @@ public class RegisterActivity extends AppCompatActivity {
                         boolean insercionExitosa= GestorBBDDOperacionesUsuarios.insertarUsuario(user, bd);
                         if (insercionExitosa){
                             Toast.makeText(RegisterActivity.this, "Usuario Creado", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            //Intent intent = new Intent(StartActivity.this, SearchActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
                         else{
                             Toast.makeText(RegisterActivity.this, "Error al Crear usuario", Toast.LENGTH_SHORT).show();
