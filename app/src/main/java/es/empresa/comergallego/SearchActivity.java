@@ -25,10 +25,14 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
     protected SearchView search1;
     protected GestorBBDD bd;
+    protected GestorBBDDOperacionesUsuarios gestorUsuarios;
     protected ListView lista1;
     private ArrayList<String> localizaciones = new ArrayList<String>();
     private ArrayAdapter<String> adaptador;
     private Intent pasarPantalla;
+    private Bundle extras;
+    private String paquete="";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,11 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         search1 = (SearchView) findViewById(R.id.search1_search);
         lista1 = (ListView) findViewById(R.id.lista1_search);
         search1.setOnQueryTextListener(this);
+
+
     }
+
+
 
     @Override
     public boolean onQueryTextSubmit(String query) {
@@ -97,4 +105,31 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        MenuItem menuLocales = menu.findItem(R.id.item_menu_locales);
+
+        extras = getIntent().getExtras();
+
+        if (extras!=null){
+
+            try {
+                paquete =extras.getString("NOMBREUSUARIO");
+                gestorUsuarios = new GestorBBDDOperacionesUsuarios();
+                String rol = gestorUsuarios.consultaAdministrador(paquete);
+                if (rol.equals("true")) {
+                    menuLocales.setVisible(true);
+                } else {
+                    menuLocales.setVisible(false);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return true;
+    }
+
 }

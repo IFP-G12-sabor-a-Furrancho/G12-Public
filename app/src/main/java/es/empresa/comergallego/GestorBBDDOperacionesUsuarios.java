@@ -3,23 +3,34 @@ package es.empresa.comergallego;
 import android.widget.Toast;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
 public class GestorBBDDOperacionesUsuarios {
 
+    static String nombreTabla = "usuarios";
+    Statement s=null;
+    ResultSet rs=null;
+    String url = "jdbc:postgresql://ep-shy-glade-57906898.eu-central-1.aws.neon.fl0.io:5432/comergallego";
+    String user = "fl0user";
+    String password = "8Zizcvy1rMhs";
+    Connection conn=null;
 
 
 
-
-    public GestorBBDDOperacionesUsuarios () {
-
+    public GestorBBDDOperacionesUsuarios () throws SQLException {
+        conn = DriverManager.getConnection(url, user, password);
+        if (conn != null) {
+            System.out.println("Conexión exitosa a la base de datos");
+        }
     }
 
     public static void insertarModificarEliminar(String consulta, Statement s) throws SQLException {
@@ -125,6 +136,25 @@ public class GestorBBDDOperacionesUsuarios {
             }
         }
     }
+
+    public String consultaAdministrador(String nombreUsuario) throws SQLException {
+        String rol = "";
+
+        String consulta = "SELECT rolusuario FROM " + nombreTabla + " WHERE nombreusuario = ?";
+        PreparedStatement statement = conn.prepareStatement(consulta);
+        statement.setString(1, nombreUsuario);
+
+        try (ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                rol = rs.getString("rolusuario");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return rol;
+    }
+
 }
 
 
