@@ -26,11 +26,13 @@ public class ListadoLocalesPropios extends AppCompatActivity {
     private ArrayAdapter<String> adaptador = null;
     private boolean crear=false;
     GestorBBDOperacionesLocales bbddlocales;
+    GestorBBDDOperacionesUsuarios bbddUsuarios;
     final String url = "jdbc:postgresql://ep-nameless-snow-71296629.eu-central-1.aws.neon.fl0.io:5432/comergallego-Alberto?sslmode=require";
     String usuario = "fl0user";
     String contrasena = "lpEWc0JdMgK4";
     protected Bundle extras;
     private String paquete="";
+    private int idUser=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
         try {
             // Creamos una instancia de GestorBBDDOperacionesLocales
             bbddlocales = new GestorBBDOperacionesLocales();
+            bbddUsuarios = new GestorBBDDOperacionesUsuarios();
 
             //bbddlocales = new GestorBBDOperacionesLocales();
 
@@ -62,7 +65,8 @@ public class ListadoLocalesPropios extends AppCompatActivity {
         }
 
         try {
-            nombres = bbddlocales.getNombresLocales();
+            idUser = Integer.parseInt(bbddUsuarios.consultaIDAdministrador(paquete));
+            nombres = bbddlocales.getNombresLocales(idUser);
         } catch (SQLException e) {
             Toast.makeText(this, "Error al ejecutar el método getNombreLocales", Toast.LENGTH_SHORT).show();
             throw new RuntimeException(e);
