@@ -97,6 +97,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
                 Intent intent = new Intent(SearchActivity.this, ListadoLocalesPropios.class);
                 intent.putExtra("NOMBREUSUARIO",paquete);
                 startActivity(intent);
+                finish();
 
 
                 finish();

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
 
     //Definición de atributos
     private ListView lista1;
+    private Button boton1;
 
     private ArrayList<String> nombres;
     private ArrayAdapter<String> adaptador = null;
@@ -44,6 +46,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
 
         //Referenciamos componentes
         lista1 = (ListView) findViewById(R.id.lista1_Activity3b);
+        boton1 = (Button) findViewById(R.id.boton1_listado);
 
         extras = getIntent().getExtras();
 
@@ -104,6 +107,17 @@ public class ListadoLocalesPropios extends AppCompatActivity {
                 //Al pasar de pantalla, debemos de recibir el paquete con el nombre en la otra actividad, buscar en la BBDD con el id que mandamos
             }
         });
+
+        boton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pasarPantalla = new Intent(ListadoLocalesPropios.this, SearchActivity.class);
+                pasarPantalla.putExtra("NOMBREUSUARIO",paquete);
+                startActivity(pasarPantalla);
+                finish();
+            }
+        });
+
     }
 
     //Codigo del menu

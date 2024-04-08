@@ -146,6 +146,7 @@ public class CrearModificarLocales extends AppCompatActivity {
                 public void onClick(View view) {
                     //Intent pasarPantalla = new Intent(es.empresa.comergallego.CrearModificarLocales.this, Activity3B.class);
                     Intent pasarPantalla = new Intent(CrearModificarLocales.this, ListadoLocalesPropios.class);
+                    pasarPantalla.putExtra("NOMBREUSUARIO",paquete);
                     startActivity(pasarPantalla);
                     finish();
                 }
@@ -239,6 +240,7 @@ public class CrearModificarLocales extends AppCompatActivity {
                 public void onClick(View view) {
                     //Intent pasarPantalla = new Intent(es.empresa.comergallego.CrearModificarLocales.this, Activity3B.class);
                     Intent pasarPantalla = new Intent(CrearModificarLocales.this, ListadoLocalesPropios.class);
+                    pasarPantalla.putExtra("NOMBREUSUARIO",paquete);
                     startActivity(pasarPantalla);
                     finish();
                 }
