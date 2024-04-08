@@ -27,8 +27,11 @@ public class Usuarios {
         this.idiomaPreferido=i;
         this.rolUsuario=r;
     }
+    public Usuarios() {
 
-    public void UsuarioReg(String nU, String n, String a , String f, String em, String pass, boolean rol){
+    }
+
+    public void UsuarioReg(String nU, String n, String a, String f, String em, String pass, boolean rol){
         this.nombreUsuario= nU;
         this.nombre=n;
         this.apellido=a;

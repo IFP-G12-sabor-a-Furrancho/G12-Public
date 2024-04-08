@@ -1,10 +1,15 @@
 package es.empresa.comergallego;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,17 +17,32 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity {
-    protected EditText text4Register;
-    protected  EditText text1Register;
-    protected  EditText text2Register;
-    protected  EditText text3Register;
+
+    protected  EditText textName;
+    protected  EditText textPass;
+    protected  EditText textSurname;
+    protected  EditText textData;
+    protected  EditText textUserName;
+    protected  EditText textEmail;
+
+
+    private Usuarios user;
+
+    protected Button buttonReg;
+    protected GestorBBDD bd;
+
+    private Intent pasaPantalla;
 
     protected CheckBox check1;
+
 
 
 
@@ -34,18 +54,49 @@ public class RegisterActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            text4Register = findViewById(R.id.text4_register);
-            text1Register = findViewById(R.id.text1_register);
-            text2Register = findViewById(R.id.text2_register);
-            text3Register = findViewById(R.id.text3_register);
+
+            StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(threadPolicy);
+            textData = findViewById(R.id.text4_register);
+            textName = findViewById(R.id.text1_register);
+            textPass= findViewById(R.id.text2_register);
+            textSurname = findViewById(R.id.text3_register);
             check1= findViewById(R.id.checkbox_user);
+            buttonReg= findViewById(R.id.button1_register);
+            textUserName= findViewById(R.id.text6_register);
+            textEmail= findViewById(R.id.text7_register);
 
-            text4Register.setOnClickListener(v1 -> showDatePickerDialog());
+            //Llamada a Metodo para mostrar el calendario al seleccionar la fecha
+            textData.setOnClickListener(v1 -> showDatePickerDialog());
 
+            buttonReg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    user= new Usuarios();
+                    user.UsuarioReg(textUserName.getText().toString().toLowerCase(),textName.getText().toString(),textSurname.getText().toString(),textData.getText().toString(),textEmail.getText().toString(),textPass.getText().toString(),check1.isChecked());
+                    try {
+                        bd= new GestorBBDD();
+                        boolean insercionExitosa= GestorBBDDOperacionesUsuarios.insertarUsuario(user, bd);
+                        if (insercionExitosa){
+                            Toast.makeText(RegisterActivity.this, "Usuario Creado", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            //Intent intent = new Intent(StartActivity.this, SearchActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else{
+                            Toast.makeText(RegisterActivity.this, "Error al Crear usuario", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
 
+                }
+            });
             return insets;
         });
     }
+    // Metodo para seleccionar la fecha
     private void showDatePickerDialog() {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -56,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
                 (DatePicker view, int year1, int monthOfYear, int dayOfMonth1) -> {
                     calendar.set(year1, monthOfYear, dayOfMonth1);
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                    text4Register.setText(sdf.format(calendar.getTime()));
+                    textData.setText(sdf.format(calendar.getTime()));
                 }, year, month, dayOfMonth);
 
         datePickerDialog.show();
