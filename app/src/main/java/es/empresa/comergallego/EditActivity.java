@@ -1,7 +1,9 @@
 package es.empresa.comergallego;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,12 +23,18 @@ import java.sql.Statement;
 public class EditActivity extends AppCompatActivity {
 
     EditText editTextNombre, editTextApellido, editTextCorreo;
-    Button btnGuardarCambios;
+    Button btnGuardarCambios, btnAtras;
 
     // Datos de conexión a la base de datos PostgreSQL
     String url = "jdbc:postgresql://ep-shy-glade-57906898.eu-central-1.aws.neon.fl0.io:5432/comergallego";
     String user = "fl0user";
     String password = "8Zizcvy1rMhs";
+    private String[] datosUsuarioArray;
+
+    private Bundle extras;
+    private String idUsuario;
+    private String paquete;
+    private GestorBBDDOperacionesUsuarios bbddUsuarios;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -34,6 +42,10 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_edit);
+
+        StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(threadPolicy);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -45,6 +57,30 @@ public class EditActivity extends AppCompatActivity {
         editTextApellido = findViewById(R.id.editTextApellido);
         editTextCorreo = findViewById(R.id.editTextCorreo);
         btnGuardarCambios = findViewById(R.id.btnGuardarCambios);
+        btnAtras = (Button) findViewById(R.id.boton2_edit);
+
+        try {
+            bbddUsuarios = new GestorBBDDOperacionesUsuarios();
+            extras = getIntent().getExtras();
+            if (extras!=null) {
+                paquete = extras.getString("NOMBREUSUARIO");
+                idUsuario = bbddUsuarios.consultaID(paquete);
+                String consulta = bbddUsuarios.usuario(idUsuario);
+
+                datosUsuarioArray = consulta.split("-");
+
+                String nombre = datosUsuarioArray[0];
+                String apellido = datosUsuarioArray[1];
+                String correoElectronico = datosUsuarioArray[2];
+
+                editTextNombre.setText(nombre);
+                editTextApellido.setText(apellido);
+                editTextCorreo.setText(correoElectronico);
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         // Listener para el botón de guardar cambios
         btnGuardarCambios.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +97,7 @@ public class EditActivity extends AppCompatActivity {
                     Statement statement = connection.createStatement();
 
                     // Obtener el ID del usuario que se está editando (puedes pasarlo como un extra desde la actividad anterior)
-                    String idUsuario = null /* Obt&eacute;n el ID del usuario de alguna manera */;
+                    //String idUsuario = null /* Obt&eacute;n el ID del usuario de alguna manera */;
 
                     // Actualizar el usuario en la base de datos
                     GestorBBDDOperacionesUsuarios.actualizarNombre(idUsuario, nuevoNombre, statement);
@@ -76,6 +112,16 @@ public class EditActivity extends AppCompatActivity {
                     e.printStackTrace();
                     Toast.makeText(EditActivity.this, "Error al actualizar usuario", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pasarPantalla = new Intent(EditActivity.this, SearchActivity.class);
+                pasarPantalla.putExtra("NOMBREUSUARIO",paquete);
+                startActivity(pasarPantalla);
+                finish();
             }
         });
     }

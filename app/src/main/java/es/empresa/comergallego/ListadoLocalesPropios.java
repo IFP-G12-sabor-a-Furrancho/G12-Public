@@ -68,7 +68,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
         }
 
         try {
-            idUser = Integer.parseInt(bbddUsuarios.consultaIDAdministrador(paquete));
+            idUser = Integer.parseInt(bbddUsuarios.consultaID(paquete));
             nombres = bbddlocales.getNombresLocales(idUser);
         } catch (SQLException e) {
             Toast.makeText(this, "Error al ejecutar el método getNombreLocales", Toast.LENGTH_SHORT).show();

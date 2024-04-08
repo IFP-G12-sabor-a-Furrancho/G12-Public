@@ -103,6 +103,10 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
                 finish();
                 return true;
             case R.id.item_menu_usuario:
+                Intent pasarPantalla = new Intent(SearchActivity.this, EditActivity.class);
+                pasarPantalla.putExtra("NOMBREUSUARIO",paquete);
+                startActivity(pasarPantalla);
+                finish();
 
                 return true;
             default:

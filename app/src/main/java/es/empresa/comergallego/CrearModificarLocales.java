@@ -126,7 +126,7 @@ public class CrearModificarLocales extends AppCompatActivity {
                         try {
                             bbddlocales.insertarNuevoLocal(nombreLocal, direccion, descripcion, tipoLocal, horario, telefono, coordenadasGPS);
 
-                            idUser = Integer.parseInt(bbddUsuarios.consultaIDAdministrador(paquete));
+                            idUser = Integer.parseInt(bbddUsuarios.consultaID(paquete));
 
                             bbddlocales.insertarTablaIntermedia(idUser);
 
@@ -226,7 +226,10 @@ public class CrearModificarLocales extends AppCompatActivity {
                         }
                         if (!(caja7.getText().equals(coordenadasGPS))) {
                             bbddlocales.actualizarCoordenadasGPS(id, caja7.getText().toString());
-                        } }
+                        }
+
+                        Toast.makeText(es.empresa.comergallego.CrearModificarLocales.this, "Modificación realizada correctamente", Toast.LENGTH_SHORT).show();
+                    }
                         catch(SQLException e){
                             throw new RuntimeException(e);
                         }

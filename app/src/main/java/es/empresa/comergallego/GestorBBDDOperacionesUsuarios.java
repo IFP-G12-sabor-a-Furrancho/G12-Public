@@ -34,14 +34,8 @@ public class GestorBBDDOperacionesUsuarios {
     }
 
     public static void insertarModificarEliminar(String consulta, Statement s) throws SQLException {
-        try {
             s.executeUpdate(consulta);
             System.out.println("Operacion realizada correctamente");
-        } finally {
-            if (s != null) {
-                s.close();
-            }
-        }
     }
 
     public static boolean insertarUsuario(Usuarios u, GestorBBDD bd) throws SQLException {
@@ -120,21 +114,29 @@ public class GestorBBDDOperacionesUsuarios {
 
 
     // Método para consultar usuarios
-    public static void consulta(String consulta, Statement s) throws SQLException {
-        try {
-            ResultSet rs = s.executeQuery(consulta);
-            System.out.println("Datos obtenidos correctamente");
-            System.out.println("");
-            while (rs.next()) {
-                System.out.println(rs.getString("id_Usuario") + " - " + rs.getString("nombreUsuario") + " - "
-                        + rs.getString("nombre") + " - " + rs.getString("apellido") + " - "
-                        + rs.getString("fechaNacimiento")+ " - " + rs.getString("correoElectronico") + " - " + rs.getString("password") + " - " + rs.getString("historialBusquedas") + " - " + rs.getString("ubicacionActual") + " - " + rs.getString("idiomaPreferido") + " - " + rs.getString("rolUsuario"));
+    public String usuario (String idUsuario) throws SQLException {
+            String usuario = "";
+            // Asumimos que 'conn' es una conexión válida a tu base de datos
+
+            //String consulta = "SELECT id_localizacion, nombrelocal FROM " + nombreTabla + " ORDER BY id_localizacion ASC";
+
+            String consulta = "SELECT nombre, apellidos, correoelectronico FROM usuarios WHERE id_usuario = '" + idUsuario + "'";
+
+        try (Statement s = conn.createStatement();
+             ResultSet rs = s.executeQuery(consulta)) {
+                    while (rs.next()) {
+                        String nombre = rs.getString("nombre");
+                        String apellidos = rs.getString("apellidos");
+                        String correoElectronido = rs.getString("correoelectronico");
+
+                        // Formar el string con los datos separados por "-"
+                        usuario = nombre + "-" + apellidos + "-" + correoElectronido;
+                    }
+            } catch (SQLException e) {
+                System.err.println("Error al obtener los datos del usuario: " + e.getMessage());
+                // Manejar la excepción según la lógica de tu aplicación
             }
-        } finally {
-            if (s != null) {
-                s.close();
-            }
-        }
+            return usuario;
     }
 
     public String consultaAdministrador(String nombreUsuario) throws SQLException {
@@ -155,7 +157,7 @@ public class GestorBBDDOperacionesUsuarios {
         return rol;
     }
 
-    public String consultaIDAdministrador(String nombreUsuario) throws SQLException {
+    public String consultaID(String nombreUsuario) throws SQLException {
         String id = "";
 
         String consulta = "SELECT id_usuario FROM " + nombreTabla + " WHERE nombreusuario = ?";
@@ -176,19 +178,19 @@ public class GestorBBDDOperacionesUsuarios {
 
     // Implementación del método actualizarNombre
     public static void actualizarNombre(String idUsuario, String nuevoNombre, Statement s) throws SQLException {
-        String consulta = "UPDATE usuarios SET nombre = '" + nuevoNombre + "' WHERE id_Usuario = '" + idUsuario + "'";
+        String consulta = "UPDATE usuarios SET nombre = '" + nuevoNombre + "' WHERE id_usuario = '" + idUsuario + "'";
         insertarModificarEliminar(consulta, s);
     }
 
     // Implementación del método actualizarApellido
     public static void actualizarApellido(String idUsuario, String nuevoApellido, Statement s) throws SQLException {
-        String consulta = "UPDATE usuarios SET apellido = '" + nuevoApellido + "' WHERE id_Usuario = '" + idUsuario + "'";
+        String consulta = "UPDATE usuarios SET apellidos = '" + nuevoApellido + "' WHERE id_usuario = '" + idUsuario + "'";
         insertarModificarEliminar(consulta, s);
     }
 
     // Implementación del método actualizarCorreoElectronico
     public static void actualizarCorreoElectronico(String idUsuario, String nuevoCorreo, Statement s) throws SQLException {
-        String consulta = "UPDATE usuarios SET correoElectronico = '" + nuevoCorreo + "' WHERE id_Usuario = '" + idUsuario + "'";
+        String consulta = "UPDATE usuarios SET correoelectronico = '" + nuevoCorreo + "' WHERE id_usuario = '" + idUsuario + "'";
         insertarModificarEliminar(consulta, s);
     }
 }
