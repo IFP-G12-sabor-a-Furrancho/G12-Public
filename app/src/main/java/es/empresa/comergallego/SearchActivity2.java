@@ -1,4 +1,4 @@
-/**package es.empresa.comergallego;
+/*package es.empresa.comergallego;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -108,4 +108,4 @@ public class SearchActivity2 extends AppCompatActivity implements SearchView.OnQ
         }
         return true;
     }
-}**/
+}*/
