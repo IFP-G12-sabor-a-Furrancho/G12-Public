@@ -7,9 +7,7 @@ public class Local implements Serializable {
     private String nombre;
     private String direccion;
     private String telefono;
-    // Puedes agregar otros atributos según necesites
 
-    // Constructor que inicializa todos los atributos
     public Local(int id, String nombre, String direccion, String telefono) {
         this.id = id;
         this.nombre = nombre;
@@ -17,7 +15,6 @@ public class Local implements Serializable {
         this.telefono = telefono;
     }
 
-    // Getters
     public int getId() {
         return id;
     }
@@ -34,7 +31,6 @@ public class Local implements Serializable {
         return telefono;
     }
 
-    // Setters
     public void setId(int id) {
         this.id = id;
     }
@@ -51,7 +47,6 @@ public class Local implements Serializable {
         this.telefono = telefono;
     }
 
-    // Método toString() para representar el objeto Local como una cadena de texto
     @Override
     public String toString() {
         return "Local{" +
@@ -61,6 +56,4 @@ public class Local implements Serializable {
                 ", telefono='" + telefono + '\'' +
                 '}';
     }
-    // Aquí puedes agregar otros métodos que necesites
 }
-
