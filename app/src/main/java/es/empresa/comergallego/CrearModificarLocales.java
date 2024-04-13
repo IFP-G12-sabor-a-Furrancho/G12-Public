@@ -41,9 +41,13 @@ public class CrearModificarLocales extends AppCompatActivity {
     private int idUser=0;
     GestorBBDOperacionesLocales bbddlocales;
     GestorBBDDOperacionesUsuarios bbddUsuarios;
-    final String url = "jdbc:postgresql://ep-nameless-snow-71296629.eu-central-1.aws.neon.fl0.io:5432/comergallego-Alberto?sslmode=require";
-    String usuario = "fl0user";
-    String contrasena = "lpEWc0JdMgK4";
+    //String url = "jdbc:postgresql://ep-shy-glade-57906898.eu-central-1.aws.neon.fl0.io:5432/comergallego";
+    //String user = "fl0user";
+    //String password = "8Zizcvy1rMhs";
+
+    String url = "jdbc:postgresql://ep-proud-queen-a25i44xx.eu-central-1.aws.neon.tech/comergallego";
+    String user = "comergallego_owner";
+    String password = "MnexL8Y1OZCc";
     private String paquete="";
 
 

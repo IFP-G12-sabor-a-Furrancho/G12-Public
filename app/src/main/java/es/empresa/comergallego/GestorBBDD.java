@@ -12,9 +12,13 @@ public class GestorBBDD {
 
     public GestorBBDD() throws SQLException {
 
-        String url = "jdbc:postgresql://ep-shy-glade-57906898.eu-central-1.aws.neon.fl0.io:5432/comergallego";
-        String user = "fl0user";
-        String password = "8Zizcvy1rMhs";
+        //String url = "jdbc:postgresql://ep-shy-glade-57906898.eu-central-1.aws.neon.fl0.io:5432/comergallego";
+        //String user = "fl0user";
+        //String password = "8Zizcvy1rMhs";
+
+        String url = "jdbc:postgresql://ep-proud-queen-a25i44xx.eu-central-1.aws.neon.tech/comergallego";
+        String user = "comergallego_owner";
+        String password = "MnexL8Y1OZCc";
 
         conn= DriverManager.getConnection(url, user, password);
         if (conn != null) {
