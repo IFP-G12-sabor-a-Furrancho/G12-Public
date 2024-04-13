@@ -50,7 +50,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 try {
                     bd = new GestorBBDD();
-                    boolean loginExitoso = GestorBBDDOperacionesUsuarios.consultarLogin(caja1.getText().toString().toLowerCase(),caja2.getText().toString(), bd);
+
+                    //Calcular el hash de la contraseña
+                    String hashedPass= RegisterActivity.hashPassword(caja2.getText().toString());
+                    //Controlamos el login
+                    boolean loginExitoso = GestorBBDDOperacionesUsuarios.consultarLogin(caja1.getText().toString().toLowerCase(),hashedPass, bd);
+
+                    //si es existoso tiene un  resultado y sino otro
                     if (loginExitoso){
                         Toast.makeText(LoginActivity.this, "Login Exitoso", Toast.LENGTH_SHORT).show();
 
