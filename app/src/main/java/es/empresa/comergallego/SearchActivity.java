@@ -13,12 +13,14 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     protected SearchView search1;
     protected ListView lista1;
+    protected GestorBBDDOperacionesUsuarios gestorUsuarios;
     private ArrayAdapter<String> adaptador;
     private Intent pasarPantalla;
     private Bundle extras;
@@ -90,9 +92,15 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         extras = getIntent().getExtras();
         if (extras != null) {
             try {
-                paquete = extras.getString("NOMBREUSUARIO");
-                menuLocales.setVisible(true);  // Aquí podrías manejar si se muestra o no según el rol del usuario
-            } catch (Exception e) {
+                paquete =extras.getString("NOMBREUSUARIO");
+                gestorUsuarios = new GestorBBDDOperacionesUsuarios();
+                String rol = gestorUsuarios.consultaAdministrador(paquete);
+                if (rol.equals("true")) {
+                    menuLocales.setVisible(true);
+                } else {
+                    menuLocales.setVisible(false);
+                }
+            } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
