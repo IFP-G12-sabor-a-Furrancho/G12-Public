@@ -4,9 +4,10 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +16,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -23,13 +26,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -227,7 +229,21 @@ public class RegisterActivity extends AppCompatActivity {
                 bd = new GestorBBDD();
                 boolean usuarioExiste = verificarUsuario(username);
                 if(usuarioExiste){
-                    Toast.makeText(RegisterActivity.this, "El nombre de usuario existe, debes cambiarlo", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(RegisterActivity.this, "El nombre de usuario existe, debes cambiarlo", Toast.LENGTH_LONG).show();
+
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "El nombre de usuario existe, debes cambiarlo", Snackbar.LENGTH_LONG);
+                    View snackbarView = snackbar.getView();
+                    TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+                    textView.setTextColor(Color.RED);
+                    DisplayMetrics metrics = getResources().getDisplayMetrics();
+                    int screenHeight = metrics.heightPixels;
+                    int yOffset = (int) (screenHeight * 0.12);
+                    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
+                    params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+                    params.topMargin = yOffset;
+                    snackbarView.setLayoutParams(params);
+                    snackbar.show();
+
                     cajaU.setDefaultHintTextColor(ColorStateList.valueOf(Color.RED));
                     buttonReg.setEnabled(false);
 
