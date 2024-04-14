@@ -197,5 +197,6 @@ public class GestorBBDDOperacionesUsuarios {
         String consulta = "UPDATE usuarios SET correoelectronico = '" + nuevoCorreo + "' WHERE id_usuario = '" + idUsuario + "'";
         insertarModificarEliminar(consulta, s);
     }
+
 }
 

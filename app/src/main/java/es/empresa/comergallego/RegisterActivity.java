@@ -2,6 +2,9 @@ package es.empresa.comergallego;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
@@ -20,11 +23,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -38,6 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
     protected  EditText textData;
     protected  EditText textUserName;
     protected  EditText textEmail;
+
+    protected TextInputLayout cajaU;
 
 
     private Usuarios user;
@@ -71,9 +80,22 @@ public class RegisterActivity extends AppCompatActivity {
             buttonReg= findViewById(R.id.button1_register);
             textUserName= findViewById(R.id.text6_register);
             textEmail= findViewById(R.id.text7_register);
-
+            cajaU= findViewById(R.id.layout6_register);
             //Llamada a Metodo para mostrar el calendario al seleccionar la fecha
             textData.setOnClickListener(v1 -> showDatePickerDialog());
+            //desactivamos el boton registrar
+
+
+            textUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(!hasFocus){
+                        //cuando pierde el foco la caja de texto
+                        usuarioReg();
+
+                    }
+                }
+            });
 
             buttonReg.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -160,6 +182,68 @@ public class RegisterActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public boolean verificarUsuario(String username) throws  SQLException{
+        boolean usuarioExiste=false;
+        Connection conn= null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+
+        try {
+            conn=bd.conn;
+            String sql=  "SELECT COUNT(*) AS count FROM usuarios WHERE nombreusuario = ?";
+            st= conn.prepareStatement(sql);
+            st.setString(1,username);
+            rs= st.executeQuery();
+            if (rs.next()){
+                int count = rs.getInt("count");
+                usuarioExiste = count > 0;
+
+            }
+
+        }finally {
+            //cerrar recursos
+            if (rs!=null){
+                rs.close();
+            }
+            if(st != null){
+                st.close();
+            }
+            if (conn!=null){
+                conn.close();
+            }
+        }
+
+
+
+        return usuarioExiste;
+    }
+    public void usuarioReg(){
+        String username = textUserName.getText().toString().toLowerCase();
+        if(!username.isEmpty()){
+            //realizamos al consulta para comrobar si existe el usuario
+            try{
+                bd = new GestorBBDD();
+                boolean usuarioExiste = verificarUsuario(username);
+                if(usuarioExiste){
+                    Toast.makeText(RegisterActivity.this, "El nombre de usuario existe, debes cambiarlo", Toast.LENGTH_SHORT).show();
+                    cajaU.setDefaultHintTextColor(ColorStateList.valueOf(Color.RED));
+                    buttonReg.setEnabled(false);
+
+                }
+                else {
+                    cajaU.setDefaultHintTextColor(ColorStateList.valueOf(Color.WHITE));
+                    buttonReg.setEnabled(true);
+                }
+
+            }
+            catch (SQLException e){
+                throw  new RuntimeException(e);
+
+            }
+        }
+
     }
 
 }
