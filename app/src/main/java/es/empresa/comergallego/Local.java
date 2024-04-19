@@ -7,14 +7,22 @@ public class Local implements Serializable {
     private String nombre;
     private String direccion;
     private String telefono;
-    // Puedes agregar otros atributos según necesites
+    private String descripcion;
+    private String tipoLocal;
+    private String horario;
+    private String coordenadasGPS;
 
     // Constructor que inicializa todos los atributos
-    public Local(int id, String nombre, String direccion, String telefono) {
+    public Local(int id, String nombre, String direccion, String telefono,
+                 String descripcion, String tipoLocal, String horario, String coordenadasGPS) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.descripcion = descripcion;
+        this.tipoLocal = tipoLocal;
+        this.horario = horario;
+        this.coordenadasGPS = coordenadasGPS;
     }
 
     // Getters
@@ -34,6 +42,22 @@ public class Local implements Serializable {
         return telefono;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getTipoLocal() {
+        return tipoLocal;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public String getCoordenadasGPS() {
+        return coordenadasGPS;
+    }
+
     // Setters
     public void setId(int id) {
         this.id = id;
@@ -51,16 +75,19 @@ public class Local implements Serializable {
         this.telefono = telefono;
     }
 
-    // Método toString() para representar el objeto Local como una cadena de texto
-    @Override
-    public String toString() {
-        return "Local{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", telefono='" + telefono + '\'' +
-                '}';
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
-    // Aquí puedes agregar otros métodos que necesites
-}
 
+    public void setTipoLocal(String tipoLocal) {
+        this.tipoLocal = tipoLocal;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public void setCoordenadasGPS(String coordenadasGPS) {
+        this.coordenadasGPS = coordenadasGPS;
+    }
+}

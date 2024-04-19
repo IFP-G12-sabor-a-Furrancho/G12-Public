@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">ComerGallego</string>
+    <string name="app_name">NombreDeTuApp</string>
+
+    <!-- Títulos y Labels para DetalleLocalCompletoActivity -->
+    <string name="title_activity_detalle_local_completo">Detalle del Local</string>
+    <string name="label_nombre_local">Nombre:</string>
+    <string name="label_direccion">Dirección:</string>
+    <string name="label_descripcion">Descripción:</string>
+    <string name="label_tipo_local">Tipo de Local:</string>
+    <string name="label_horario">Horario:</string>
+    <string name="label_telefono">Teléfono:</string>
+    <string name="label_coordenadas_gps">Coordenadas GPS:</string>
+
+    <!-- Mensajes de Error o Información -->
+    <string name="error_loading_data">Error cargando datos</string>
+    <string name="info_no_data_available">No hay datos disponibles</string>
+
 </resources>
+
+
