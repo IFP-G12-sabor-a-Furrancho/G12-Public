@@ -25,6 +25,10 @@ public class Local implements Serializable {
         this.coordenadasGPS = coordenadasGPS;
     }
 
+    public Local() {
+
+    }
+
     // Getters
     public int getId() {
         return id;

@@ -37,6 +37,29 @@ public class GestorBBDOperacionesLocales{
         }
     }
 
+    public Local getLocalDetallesById(int localId) {
+        Local local = null;
+        String consulta = "SELECT nombreLocal, direccion, descripcion, tipoLocal, horario, telefono, coordenadasGPS FROM localizaciones WHERE id_localizacion=?";
+        try (PreparedStatement statement = conn.prepareStatement(consulta)) {
+            statement.setInt(1, localId);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    local = new Local();
+                    local.setNombre(rs.getString("nombreLocal"));
+                    local.setDireccion(rs.getString("direccion"));
+                    local.setDescripcion(rs.getString("descripcion"));
+                    local.setTipoLocal(rs.getString("tipoLocal"));
+                    local.setHorario(rs.getString("horario"));
+                    local.setTelefono(rs.getString("telefono"));
+                    local.setCoordenadasGPS(rs.getString("coordenadasGPS"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return local;
+    }
+
     //Revisar si se debería de quitar que se pase el atributo Statement
     public static void insertarModificarEliminar(String consulta, Statement s) throws SQLException, SQLException {
         try {
