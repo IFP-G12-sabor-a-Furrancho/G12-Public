@@ -169,7 +169,7 @@ public class CrearModificarLocales extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
 
-            datosLocalArray = datosLocal.split("-");
+            datosLocalArray = datosLocal.split("-.-");
 
             //Empezamos obteniendo los datos desde la posicion 1 y no la 0 porque no nos interesa el ID
             nombreLocal = datosLocalArray[1];

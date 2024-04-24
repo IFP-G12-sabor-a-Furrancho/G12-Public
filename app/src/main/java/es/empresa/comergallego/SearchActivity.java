@@ -40,8 +40,10 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         // Setting an item click listener for the listview
         lista1.setOnItemClickListener((parent, view, position, id) -> {
             String localId = adaptador.getItem(position); // Assume your adapter returns the local IDs
+            String[] nombreLocal = localId.split("\n\n");
+            String nombreL = nombreLocal[0];
             Intent intent = new Intent(SearchActivity.this, DetalleLocalActivity.class);
-            intent.putExtra("LOCAL_ID", localId);
+            intent.putExtra("LOCAL_ID", nombreL);
             startActivity(intent);
         });
     }

@@ -39,21 +39,21 @@ public class GestorBBDOperacionesLocales{
 
     public Local getLocalDetallesById(String localId) throws SQLException {
         Local local = null;
-        String sql = "SELECT id, nombre, direccion, descripcion, tipoLocal, horario, telefono, coordenadasGPS FROM localizaciones WHERE id = ?";
+        String sql = "SELECT id_localizacion, nombrelocal, direccion, descripcion, tipoLocal, horario, telefono, coordenadasgps FROM localizaciones WHERE nombrelocal = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, localId);
         ResultSet rs = stmt.executeQuery();
 
         if (rs.next()) {
             local = new Local();
-            local.setId(rs.getInt("id"));  // Asegurándose que el ID es un entero y está alineado con la base de datos
-            local.setNombre(rs.getString("nombre"));
+            local.setId(rs.getInt("id_localizacion"));  // Asegurándose que el ID es un entero y está alineado con la base de datos
+            local.setNombre(rs.getString("nombrelocal"));
             local.setDireccion(rs.getString("direccion"));
             local.setDescripcion(rs.getString("descripcion"));
             local.setTipoLocal(rs.getString("tipoLocal"));
             local.setHorario(rs.getString("horario"));
             local.setTelefono(rs.getString("telefono"));
-            local.setCoordenadasGPS(rs.getString("coordenadasGPS"));
+            local.setCoordenadasGPS(rs.getString("coordenadasgps"));
         }
         rs.close();
         stmt.close();
@@ -147,7 +147,7 @@ public class GestorBBDOperacionesLocales{
                     String coordenadasGPS = rs.getString("coordenadasgps");
 
                     // Formar el string con los datos separados por "-"
-                    datosLocal = idLocal + "-" + nombreLocal + "-" + direccion + "-" + descripcion + "-" + tipoLocal + "-" + horario + "-" + telefono + "-" + coordenadasGPS;
+                    datosLocal = idLocal + "-.-" + nombreLocal + "-.-" + direccion + "-.-" + descripcion + "-.-" + tipoLocal + "-.-" + horario + "-.-" + telefono + "-.-" + coordenadasGPS;
                 }
             }
         } catch (SQLException e) {
