@@ -7,7 +7,6 @@ import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -37,13 +36,21 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         search1 = (SearchView) findViewById(R.id.search1_search);
         lista1 = (ListView) findViewById(R.id.lista1_search);
         search1.setOnQueryTextListener(this);
+
+        // Setting an item click listener for the listview
+        lista1.setOnItemClickListener((parent, view, position, id) -> {
+            String localId = adaptador.getItem(position); // Assume your adapter returns the local IDs
+            Intent intent = new Intent(SearchActivity.this, DetalleLocalActivity.class);
+            intent.putExtra("LOCAL_ID", localId);
+            startActivity(intent);
+        });
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
         try {
             GestorBBDOperacionesLocales bdLocales = new GestorBBDOperacionesLocales();
-            ArrayList<String> localizaciones = bdLocales.consulta(query);
+            ArrayList<String> localizaciones = bdLocales.consulta(query); // Ensure this method returns local IDs
             adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, localizaciones);
             lista1.setAdapter(adaptador);
             Toast.makeText(this, "Búsqueda completada.", Toast.LENGTH_SHORT).show();
@@ -92,7 +99,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         extras = getIntent().getExtras();
         if (extras != null) {
             try {
-                paquete =extras.getString("NOMBREUSUARIO");
+                paquete = extras.getString("NOMBREUSUARIO");
                 gestorUsuarios = new GestorBBDDOperacionesUsuarios();
                 String rol = gestorUsuarios.consultaAdministrador(paquete);
                 if (rol.equals("true")) {

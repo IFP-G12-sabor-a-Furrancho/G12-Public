@@ -12,9 +12,13 @@ public class Local implements Serializable {
     private String horario;
     private String coordenadasGPS;
 
+    // Constructor vacío para la creación sin parámetros iniciales
+    public Local() {
+    }
+
     // Constructor que inicializa todos los atributos
-    public Local(int id, String nombre, String direccion, String telefono,
-                 String descripcion, String tipoLocal, String horario, String coordenadasGPS) {
+    public Local(int id, String nombre, String direccion, String telefono, String descripcion,
+                 String tipoLocal, String horario, String coordenadasGPS) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -23,10 +27,6 @@ public class Local implements Serializable {
         this.tipoLocal = tipoLocal;
         this.horario = horario;
         this.coordenadasGPS = coordenadasGPS;
-    }
-
-    public Local() {
-
     }
 
     // Getters

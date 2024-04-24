@@ -1,10 +1,9 @@
 package es.empresa.comergallego;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -25,8 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     protected ImageView ima1;
     protected Button button1;
     protected Button button2;
+    protected ProgressBar progressBar;
     private GestorBBDD bd;
-
 
     private Intent pasarPantalla;
 
@@ -35,47 +35,19 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(threadPolicy);
-        caja1 = (TextInputEditText) findViewById(R.id.text1_register);
-        caja2 = (TextInputEditText) findViewById(R.id.text2_register);
-        ima1= (ImageView) findViewById(R.id.ima1_login);
-        button1 = (Button) findViewById(R.id.button1_login);
-        button2 = (Button) findViewById(R.id.boton2_login);
-
+        caja1 = findViewById(R.id.text1_register);
+        caja2 = findViewById(R.id.text2_register);
+        ima1 = findViewById(R.id.ima1_login);
+        button1 = findViewById(R.id.button1_login);
+        button2 = findViewById(R.id.boton2_login);
+        progressBar = findViewById(R.id.progress_bar_login);
+        progressBar.setVisibility(View.GONE);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                try {
-                    bd = new GestorBBDD();
-
-                    //Calcular el hash de la contraseña
-                    String hashedPass= RegisterActivity.hashPassword(caja2.getText().toString());
-                    //Controlamos el login
-                    boolean loginExitoso = GestorBBDDOperacionesUsuarios.consultarLogin(caja1.getText().toString().toLowerCase(),hashedPass, bd);
-
-                    //si es existoso tiene un  resultado y sino otro
-                    if (loginExitoso){
-                        Toast.makeText(LoginActivity.this, "Login Exitoso", Toast.LENGTH_SHORT).show();
-
-                        bd.desconectarBBDD();
-                        pasarPantalla = new Intent(LoginActivity.this, SearchActivity.class);
-                        pasarPantalla.putExtra("NOMBREUSUARIO",caja1.getText().toString());
-                        //Intent intent = new Intent(StartActivity.this, SearchActivity.class);
-                        startActivity(pasarPantalla);
-                        finish();
-
-                    }
-                    else{
-                        Toast.makeText(LoginActivity.this, "Usuario y/o contraseña incorrecto", Toast.LENGTH_SHORT).show();
-                        bd.desconectarBBDD();
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-
+                progressBar.setVisibility(View.VISIBLE);
+                new LoginTask().execute(caja1.getText().toString(), caja2.getText().toString());
             }
         });
 
@@ -83,14 +55,51 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                //Intent intent = new Intent(StartActivity.this, SearchActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
     }
 
+    private class LoginTask extends AsyncTask<String, Void, Boolean> {
+        private String username;
+        private String password;
 
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            username = strings[0].toLowerCase();
+            password = strings[1];
+
+            try {
+                bd = new GestorBBDD();
+                String hashedPass = RegisterActivity.hashPassword(password);
+                return GestorBBDDOperacionesUsuarios.consultarLogin(username, hashedPass, bd);
+            } catch (SQLException e) {
+                Log.e("LoginActivity", "Error al conectar con la base de datos", e);
+                return null;
+            } finally {
+                if (bd != null) {
+                    bd.desconectarBBDD();
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean loginExitoso) {
+            progressBar.setVisibility(View.GONE);
+            if (loginExitoso == null) {
+                Toast.makeText(LoginActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+            } else if (loginExitoso) {
+                Toast.makeText(LoginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
+                pasarPantalla = new Intent(LoginActivity.this, SearchActivity.class);
+                pasarPantalla.putExtra("NOMBREUSUARIO", username);
+                startActivity(pasarPantalla);
+                finish();
+            } else {
+                Toast.makeText(LoginActivity.this, "Usuario y/o contraseña incorrecto", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,13 +110,10 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection.
-        switch (item.getItemId()) {
-            case R.id.item_salir_login:
-               System.exit(0);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.item_salir_login) {
+            finishAffinity();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

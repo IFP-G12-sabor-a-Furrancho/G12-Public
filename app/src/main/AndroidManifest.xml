@@ -14,36 +14,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat"
         tools:targetApi="31">
+
         <activity
             android:name=".EditActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".SearchActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".CrearModificarLocales"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ListadoLocalesPropios"
             android:exported="true">
             <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DetalleLocalActivity"
+            android:theme="@style/YourNoActionBarTheme"
             android:exported="true" />
         <activity
             android:name=".DetalleLocalCompletoActivity"

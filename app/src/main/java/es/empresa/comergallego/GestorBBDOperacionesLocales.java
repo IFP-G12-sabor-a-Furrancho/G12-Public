@@ -37,26 +37,27 @@ public class GestorBBDOperacionesLocales{
         }
     }
 
-    public Local getLocalDetallesById(int localId) {
+    public Local getLocalDetallesById(String localId) throws SQLException {
         Local local = null;
-        String consulta = "SELECT nombreLocal, direccion, descripcion, tipoLocal, horario, telefono, coordenadasGPS FROM localizaciones WHERE id_localizacion=?";
-        try (PreparedStatement statement = conn.prepareStatement(consulta)) {
-            statement.setInt(1, localId);
-            try (ResultSet rs = statement.executeQuery()) {
-                if (rs.next()) {
-                    local = new Local();
-                    local.setNombre(rs.getString("nombreLocal"));
-                    local.setDireccion(rs.getString("direccion"));
-                    local.setDescripcion(rs.getString("descripcion"));
-                    local.setTipoLocal(rs.getString("tipoLocal"));
-                    local.setHorario(rs.getString("horario"));
-                    local.setTelefono(rs.getString("telefono"));
-                    local.setCoordenadasGPS(rs.getString("coordenadasGPS"));
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        String sql = "SELECT id, nombre, direccion, descripcion, tipoLocal, horario, telefono, coordenadasGPS FROM localizaciones WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, localId);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            local = new Local();
+            local.setId(rs.getInt("id"));  // Asegurándose que el ID es un entero y está alineado con la base de datos
+            local.setNombre(rs.getString("nombre"));
+            local.setDireccion(rs.getString("direccion"));
+            local.setDescripcion(rs.getString("descripcion"));
+            local.setTipoLocal(rs.getString("tipoLocal"));
+            local.setHorario(rs.getString("horario"));
+            local.setTelefono(rs.getString("telefono"));
+            local.setCoordenadasGPS(rs.getString("coordenadasGPS"));
         }
+        rs.close();
+        stmt.close();
+
         return local;
     }
 
