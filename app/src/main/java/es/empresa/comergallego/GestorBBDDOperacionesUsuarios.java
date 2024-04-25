@@ -1,5 +1,7 @@
 package es.empresa.comergallego;
 
+import static es.empresa.comergallego.RegisterActivity.hashPassword;
+
 import android.widget.Toast;
 
 import java.sql.Connection;
@@ -214,17 +216,28 @@ public class GestorBBDDOperacionesUsuarios {
         return id;
     }
     public boolean modificarContrasena(String nombreUsuario, String contrasenaActual, String nuevaContrasena) throws SQLException {
-        String sqlVerificar = "SELECT password FROM " + nombreTabla + " WHERE nombreusuario = ?";
-        try (PreparedStatement pstmtVerificar = conn.prepareStatement(sqlVerificar)) {
-            pstmtVerificar.setString(1, nombreUsuario);
-            ResultSet rs = pstmtVerificar.executeQuery();
-            if (rs.next() && rs.getString("password").equals(contrasenaActual)) {
-                String sqlActualizar = "UPDATE " + nombreTabla + " SET password = ? WHERE nombreusuario = ?";
-                try (PreparedStatement pstmtActualizar = conn.prepareStatement(sqlActualizar)) {
-                    pstmtActualizar.setString(1, nuevaContrasena);
-                    pstmtActualizar.setString(2, nombreUsuario);
+
+        String cActual = hashPassword(contrasenaActual);
+        String cNueva = hashPassword(nuevaContrasena);
+
+        String sqlVerificar = "SELECT password FROM " + nombreTabla + " WHERE id_usuario = ?";
+        PreparedStatement pstmtVerificar = conn.prepareStatement(sqlVerificar);
+        pstmtVerificar.setInt(1, Integer.parseInt(nombreUsuario));
+
+        try (ResultSet rs = pstmtVerificar.executeQuery()) {
+
+            if (rs.next()) {
+                String sqlActualizar = "UPDATE " + nombreTabla + " SET password = ? WHERE id_usuario = ?";
+                PreparedStatement pstmtActualizar = conn.prepareStatement(sqlActualizar);
+                pstmtActualizar.setString(1, cNueva);
+                pstmtActualizar.setInt(2, Integer.parseInt(nombreUsuario));
+                try {
+
                     int affectedRows = pstmtActualizar.executeUpdate();
                     return affectedRows > 0;
+                } catch (SQLException e) {
+                    System.err.println("Error al modificar la contraseña: " + e.getMessage());
+                    return false;
                 }
             }
             return false;

@@ -80,8 +80,23 @@ public class EditActivity extends AppCompatActivity {
 
         // Listener para el botón de guardar cambios
         btnGuardarCambios.setOnClickListener(v -> {
-            actualizarDatosUsuario();
-            cambiarContrasena();
+
+            if (!editTextNuevaContrasena.getText().toString().isEmpty() && !editTextContrasenaActual.getText().toString().isEmpty())
+            {
+                actualizarDatosUsuario();
+                cambiarContrasena();
+            }
+
+            else if (editTextNuevaContrasena.getText().toString().isEmpty() && editTextContrasenaActual.getText().toString().isEmpty())
+            {
+                actualizarDatosUsuario();
+            }
+
+            else if (editTextNuevaContrasena.getText().toString().isEmpty() || editTextContrasenaActual.getText().toString().isEmpty())
+            {
+                actualizarDatosUsuario();
+                Toast.makeText(EditActivity.this, "Alguno de los campos de la contraseña se halla vacío.", Toast.LENGTH_SHORT).show();
+            }
         });
 
         btnAtras.setOnClickListener(v -> {
@@ -115,6 +130,7 @@ public class EditActivity extends AppCompatActivity {
     }
 
     private void cambiarContrasena() {
+
         String contrasenaActual = editTextContrasenaActual.getText().toString();
         String nuevaContrasena = editTextNuevaContrasena.getText().toString();
 
