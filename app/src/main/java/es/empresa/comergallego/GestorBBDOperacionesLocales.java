@@ -158,6 +158,32 @@ public class GestorBBDOperacionesLocales{
         return datosLocal;
     }
 
+    //Método para las pruebas de testing
+    public int numeroRegistrosUsuarioAdministrador(int idUsuario) throws SQLException {
+        int numeroRegistros=0;
+        // Asumimos que 'conn' es una conexión válida a tu base de datos
+
+        //String consulta = "SELECT id_localizacion, nombrelocal FROM " + nombreTabla + " ORDER BY id_localizacion ASC";
+
+        String consulta = "SELECT l.*\n" +
+                "FROM localizaciones l\n" +
+                "INNER JOIN usuarios_localizaciones ul ON l.id_localizacion = ul.id_localizacion\n" +
+                "INNER JOIN usuarios u ON ul.id_usuario = u.id_usuario\n" +
+                "WHERE u.id_usuario = "+idUsuario;
+
+        // Utilizar try-with-resources para asegurar que los recursos se cierran correctamente
+        try (Statement s = conn.createStatement();
+             ResultSet rs = s.executeQuery(consulta)) {
+            while (rs.next()) {
+              numeroRegistros++;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener los nombres de los locales: " + e.getMessage());
+            // Considera lanzar la excepción o manejarla según la lógica de tu aplicación
+        }
+        return numeroRegistros;
+    }
+
 
     //Método para obtener el ID y el NombreLocal - Funcionamiento actividad 3B
     //Este método sirve para mostrar el ID y Nombre de los locales que tiene un usuario publicados

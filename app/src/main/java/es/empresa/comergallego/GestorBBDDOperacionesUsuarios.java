@@ -77,9 +77,44 @@ public class GestorBBDDOperacionesUsuarios {
                 conn.close();
             }
         }
+    }
 
-
-
+    //Método para testear
+    public static boolean insertarUsuarioTest(Usuarios u, GestorBBDD bd) throws SQLException {
+        Connection conn = null;
+        PreparedStatement statement=null;
+        try {
+            conn = bd.conn;
+            String sql = "INSERT INTO usuarios (nombreusuario, nombre, apellidos, fechanacimiento, correoelectronico, password, rolusuario) VALUES(?,?,?,?,?,?,?)";
+            statement = conn.prepareStatement(sql);
+            statement.setString(1,u.getNombreUsuario());
+            statement.setString(2,u.getNombre());
+            statement.setString(3,u.getApellido());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            Date fechaNacimiento =  sdf.parse(u.getFechaNacimiento());
+            java.sql.Date fechaNacimientoSql = new java.sql.Date(fechaNacimiento.getTime());
+            statement.setDate(4,fechaNacimientoSql);
+            statement.setString(5,u.getCorreoElectronico());
+            statement.setString(6,u.getPassword());
+            statement.setString(7, String.valueOf(u.getRolUsuario()));
+            //controlar si la inserccion fue exitosa
+            int filasInsertadas = statement.executeUpdate();
+            //return filasInsertadas >0;
+            return true;
+        } catch (ParseException e) {
+            // Manejar el error de análisis de fecha
+            //e.printStackTrace();
+            // Lanzar una excepción o manejar el error de alguna otra manera apropiada
+            return false;
+        }finally {
+            // Cerrar la conexión y el PreparedStatement en el bloque finally
+            if (statement != null) {
+                statement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
     }
 
     public static boolean consultarLogin(String nombreUsuario, String contrasena, GestorBBDD bd) throws SQLException {

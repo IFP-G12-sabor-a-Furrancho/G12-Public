@@ -23,6 +23,19 @@ public class GestorBBDD {
         }
     }
 
+    //Método para testear la conexión
+    public boolean conectarBBDD( String url, String user, String password){
+        try {
+            conn = DriverManager.getConnection(url, user, password);
+            System.out.println("Conexión exitosa a la base de datos");
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Error al conectar con la base de datos: " + e.getMessage());
+            // You could rethrow the exception or handle it based on your application needs
+            return false;
+        }
+    }
+
     public void desconectarBBDD() {
         try {
             if (conn != null && !conn.isClosed()) {
