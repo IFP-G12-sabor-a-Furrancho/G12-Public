@@ -22,13 +22,8 @@ import java.sql.Statement;
 
 public class EditActivity extends AppCompatActivity {
 
-    EditText editTextNombre, editTextApellido, editTextCorreo;
+    EditText editTextNombre, editTextApellido, editTextCorreo, editTextContrasenaActual, editTextNuevaContrasena;
     Button btnGuardarCambios, btnAtras;
-
-    // Datos de conexión a la base de datos PostgreSQL
-    //String url = "jdbc:postgresql://ep-shy-glade-57906898.eu-central-1.aws.neon.fl0.io:5432/comergallego";
-    //String user = "fl0user";
-    //String password = "8Zizcvy1rMhs";
 
     String url = "jdbc:postgresql://ep-proud-queen-a25i44xx.eu-central-1.aws.neon.tech/comergallego";
     String user = "comergallego_owner";
@@ -60,73 +55,82 @@ public class EditActivity extends AppCompatActivity {
         editTextNombre = findViewById(R.id.editTextNombre);
         editTextApellido = findViewById(R.id.editTextApellido);
         editTextCorreo = findViewById(R.id.editTextCorreo);
+        editTextContrasenaActual = findViewById(R.id.editTextContraseñaActual);
+        editTextNuevaContrasena = findViewById(R.id.editTextNuevaContraseña);
         btnGuardarCambios = findViewById(R.id.btnGuardarCambios);
-        btnAtras = (Button) findViewById(R.id.boton2_edit);
+        btnAtras = findViewById(R.id.boton2_edit);
 
         try {
             bbddUsuarios = new GestorBBDDOperacionesUsuarios();
             extras = getIntent().getExtras();
-            if (extras!=null) {
+            if (extras != null) {
                 paquete = extras.getString("NOMBREUSUARIO");
                 idUsuario = bbddUsuarios.consultaID(paquete);
                 String consulta = bbddUsuarios.usuario(idUsuario);
 
                 datosUsuarioArray = consulta.split("-");
 
-                String nombre = datosUsuarioArray[0];
-                String apellido = datosUsuarioArray[1];
-                String correoElectronico = datosUsuarioArray[2];
-
-                editTextNombre.setText(nombre);
-                editTextApellido.setText(apellido);
-                editTextCorreo.setText(correoElectronico);
-
+                editTextNombre.setText(datosUsuarioArray[0]);
+                editTextApellido.setText(datosUsuarioArray[1]);
+                editTextCorreo.setText(datosUsuarioArray[2]);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         // Listener para el botón de guardar cambios
-        btnGuardarCambios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Obtener los nuevos valores de los campos de texto
-                String nuevoNombre = editTextNombre.getText().toString();
-                String nuevoApellido = editTextApellido.getText().toString();
-                String nuevoCorreo = editTextCorreo.getText().toString();
-
-                // Conectar a la base de datos y actualizar el usuario
-                try {
-                    Connection connection = DriverManager.getConnection(url, user, password);
-                    Statement statement = connection.createStatement();
-
-                    // Obtener el ID del usuario que se está editando (puedes pasarlo como un extra desde la actividad anterior)
-                    //String idUsuario = null /* Obt&eacute;n el ID del usuario de alguna manera */;
-
-                    // Actualizar el usuario en la base de datos
-                    GestorBBDDOperacionesUsuarios.actualizarNombre(idUsuario, nuevoNombre, statement);
-                    GestorBBDDOperacionesUsuarios.actualizarApellido(idUsuario, nuevoApellido, statement);
-                    GestorBBDDOperacionesUsuarios.actualizarCorreoElectronico(idUsuario, nuevoCorreo, statement);
-
-                    // Cerrar la conexión y mostrar un mensaje de éxito
-                    statement.close();
-                    connection.close();
-                    Toast.makeText(EditActivity.this, "Usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    Toast.makeText(EditActivity.this, "Error al actualizar usuario", Toast.LENGTH_SHORT).show();
-                }
-            }
+        btnGuardarCambios.setOnClickListener(v -> {
+            actualizarDatosUsuario();
+            cambiarContrasena();
         });
 
-        btnAtras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent pasarPantalla = new Intent(EditActivity.this, SearchActivity.class);
-                pasarPantalla.putExtra("NOMBREUSUARIO",paquete);
-                startActivity(pasarPantalla);
-                finish();
-            }
+        btnAtras.setOnClickListener(v -> {
+            Intent pasarPantalla = new Intent(EditActivity.this, SearchActivity.class);
+            pasarPantalla.putExtra("NOMBREUSUARIO", paquete);
+            startActivity(pasarPantalla);
+            finish();
         });
+    }
+
+    private void actualizarDatosUsuario() {
+        String nuevoNombre = editTextNombre.getText().toString();
+        String nuevoApellido = editTextApellido.getText().toString();
+        String nuevoCorreo = editTextCorreo.getText().toString();
+
+        try {
+            Connection connection = DriverManager.getConnection(url, user, password);
+            Statement statement = connection.createStatement();
+
+            bbddUsuarios.actualizarNombre(idUsuario, nuevoNombre, statement);
+            bbddUsuarios.actualizarApellido(idUsuario, nuevoApellido, statement);
+            bbddUsuarios.actualizarCorreoElectronico(idUsuario, nuevoCorreo, statement);
+
+            statement.close();
+            connection.close();
+            Toast.makeText(EditActivity.this, "Datos del usuario actualizados correctamente.", Toast.LENGTH_SHORT).show();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Toast.makeText(EditActivity.this, "Error al actualizar datos del usuario.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void cambiarContrasena() {
+        String contrasenaActual = editTextContrasenaActual.getText().toString();
+        String nuevaContrasena = editTextNuevaContrasena.getText().toString();
+
+        new Thread(() -> {
+            try {
+                boolean success = bbddUsuarios.modificarContrasena(idUsuario, contrasenaActual, nuevaContrasena);
+                runOnUiThread(() -> {
+                    if (success) {
+                        Toast.makeText(EditActivity.this, "Contraseña actualizada correctamente.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(EditActivity.this, "Error: La contraseña actual no es correcta.", Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (SQLException e) {
+                runOnUiThread(() -> Toast.makeText(EditActivity.this, "Error al actualizar la contraseña: " + e.getMessage(), Toast.LENGTH_LONG).show());
+            }
+        }).start();
     }
 }

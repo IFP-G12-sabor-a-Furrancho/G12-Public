@@ -38,8 +38,8 @@ public class GestorBBDDOperacionesUsuarios {
     }
 
     public static void insertarModificarEliminar(String consulta, Statement s) throws SQLException {
-            s.executeUpdate(consulta);
-            System.out.println("Operacion realizada correctamente");
+        s.executeUpdate(consulta);
+        System.out.println("Operacion realizada correctamente");
     }
 
     public static boolean insertarUsuario(Usuarios u, GestorBBDD bd) throws SQLException {
@@ -154,28 +154,28 @@ public class GestorBBDDOperacionesUsuarios {
 
     // Método para consultar usuarios
     public String usuario (String idUsuario) throws SQLException {
-            String usuario = "";
-            // Asumimos que 'conn' es una conexión válida a tu base de datos
+        String usuario = "";
+        // Asumimos que 'conn' es una conexión válida a tu base de datos
 
-            //String consulta = "SELECT id_localizacion, nombrelocal FROM " + nombreTabla + " ORDER BY id_localizacion ASC";
+        //String consulta = "SELECT id_localizacion, nombrelocal FROM " + nombreTabla + " ORDER BY id_localizacion ASC";
 
-            String consulta = "SELECT nombre, apellidos, correoelectronico FROM usuarios WHERE id_usuario = '" + idUsuario + "'";
+        String consulta = "SELECT nombre, apellidos, correoelectronico FROM usuarios WHERE id_usuario = '" + idUsuario + "'";
 
         try (Statement s = conn.createStatement();
              ResultSet rs = s.executeQuery(consulta)) {
-                    while (rs.next()) {
-                        String nombre = rs.getString("nombre");
-                        String apellidos = rs.getString("apellidos");
-                        String correoElectronido = rs.getString("correoelectronico");
+            while (rs.next()) {
+                String nombre = rs.getString("nombre");
+                String apellidos = rs.getString("apellidos");
+                String correoElectronido = rs.getString("correoelectronico");
 
-                        // Formar el string con los datos separados por "-"
-                        usuario = nombre + "-" + apellidos + "-" + correoElectronido;
-                    }
-            } catch (SQLException e) {
-                System.err.println("Error al obtener los datos del usuario: " + e.getMessage());
-                // Manejar la excepción según la lógica de tu aplicación
+                // Formar el string con los datos separados por "-"
+                usuario = nombre + "-" + apellidos + "-" + correoElectronido;
             }
-            return usuario;
+        } catch (SQLException e) {
+            System.err.println("Error al obtener los datos del usuario: " + e.getMessage());
+            // Manejar la excepción según la lógica de tu aplicación
+        }
+        return usuario;
     }
 
     public String consultaAdministrador(String nombreUsuario) throws SQLException {
@@ -213,7 +213,26 @@ public class GestorBBDDOperacionesUsuarios {
 
         return id;
     }
-
+    public boolean modificarContrasena(String nombreUsuario, String contrasenaActual, String nuevaContrasena) throws SQLException {
+        String sqlVerificar = "SELECT password FROM " + nombreTabla + " WHERE nombreusuario = ?";
+        try (PreparedStatement pstmtVerificar = conn.prepareStatement(sqlVerificar)) {
+            pstmtVerificar.setString(1, nombreUsuario);
+            ResultSet rs = pstmtVerificar.executeQuery();
+            if (rs.next() && rs.getString("password").equals(contrasenaActual)) {
+                String sqlActualizar = "UPDATE " + nombreTabla + " SET password = ? WHERE nombreusuario = ?";
+                try (PreparedStatement pstmtActualizar = conn.prepareStatement(sqlActualizar)) {
+                    pstmtActualizar.setString(1, nuevaContrasena);
+                    pstmtActualizar.setString(2, nombreUsuario);
+                    int affectedRows = pstmtActualizar.executeUpdate();
+                    return affectedRows > 0;
+                }
+            }
+            return false;
+        } catch (SQLException e) {
+            System.err.println("Error al modificar la contraseña: " + e.getMessage());
+            return false;
+        }
+    }
 
     // Implementación del método actualizarNombre
     public static void actualizarNombre(String idUsuario, String nuevoNombre, Statement s) throws SQLException {
@@ -234,4 +253,3 @@ public class GestorBBDDOperacionesUsuarios {
     }
 
 }
-
