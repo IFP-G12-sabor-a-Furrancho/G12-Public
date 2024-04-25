@@ -4,11 +4,17 @@ import static es.empresa.comergallego.RegisterActivity.validarContraseña;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -16,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,6 +35,7 @@ public class EditActivity extends AppCompatActivity {
     EditText editTextNombre, editTextApellido, editTextCorreo, editTextContrasenaActual, editTextNuevaContrasena;
     Button btnGuardarCambios, btnAtras;
 
+    ImageView image;
     String url = "jdbc:postgresql://ep-proud-queen-a25i44xx.eu-central-1.aws.neon.tech/comergallego";
     String user = "comergallego_owner";
     String password = "MnexL8Y1OZCc";
@@ -36,6 +45,8 @@ public class EditActivity extends AppCompatActivity {
     private String idUsuario;
     private String paquete;
     private GestorBBDDOperacionesUsuarios bbddUsuarios;
+
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -61,6 +72,7 @@ public class EditActivity extends AppCompatActivity {
         editTextNuevaContrasena = findViewById(R.id.editTextNuevaContraseña);
         btnGuardarCambios = findViewById(R.id.btnGuardarCambios);
         btnAtras = findViewById(R.id.boton2_edit);
+        image = findViewById(R.id.image1_edit);
 
         try {
             bbddUsuarios = new GestorBBDDOperacionesUsuarios();
@@ -79,6 +91,35 @@ public class EditActivity extends AppCompatActivity {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Los requisitos mínimos son los siguientes: \n 1. Longitud mínima de 8 carácteres \n 2. Uno de los carácteres como mínimo ha de ser:\n - Un número \n - Una letra minúscula\n - Una letra mayúscula\n - Un carácter especial (!@#$%^&*()-+)", Snackbar.LENGTH_INDEFINITE);
+                View snackbarView = snackbar.getView();
+                TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+                // Ajustar el ancho del texto para mostrar todo el contenido
+                textView.setMaxLines(5); // Esto asegura que el texto tenga suficiente espacio para mostrar todas las líneas
+                textView.setSingleLine(false); // Permite múltiples líneas de texto
+                // Ajustar la gravedad del texto para que esté centrado
+                textView.setGravity(Gravity.CENTER_HORIZONTAL);
+
+                DisplayMetrics metrics = getResources().getDisplayMetrics();
+                int screenHeight = metrics.heightPixels;
+                int yOffset = (int) (screenHeight * 0.33);
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
+                params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+                params.topMargin = yOffset;
+                //params.height = 80;
+                snackbarView.setLayoutParams(params);
+                snackbar.setDuration(10000);
+                snackbar.show();
+
+            }
+        });
+
 
         // Listener para el botón de guardar cambios
         btnGuardarCambios.setOnClickListener(v -> {
