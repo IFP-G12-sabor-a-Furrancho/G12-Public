@@ -38,8 +38,8 @@ public class GestorBBDDOperacionesUsuarios {
     }
 
     public static void insertarModificarEliminar(String consulta, Statement s) throws SQLException {
-            s.executeUpdate(consulta);
-            System.out.println("Operacion realizada correctamente");
+        s.executeUpdate(consulta);
+        System.out.println("Operacion realizada correctamente");
     }
 
     public static boolean insertarUsuario(Usuarios u, GestorBBDD bd) throws SQLException {
@@ -77,9 +77,44 @@ public class GestorBBDDOperacionesUsuarios {
                 conn.close();
             }
         }
+    }
 
-
-
+    //Método para testear
+    public static boolean insertarUsuarioTest(Usuarios u, GestorBBDD bd) throws SQLException {
+        Connection conn = null;
+        PreparedStatement statement=null;
+        try {
+            conn = bd.conn;
+            String sql = "INSERT INTO usuarios (nombreusuario, nombre, apellidos, fechanacimiento, correoelectronico, password, rolusuario) VALUES(?,?,?,?,?,?,?)";
+            statement = conn.prepareStatement(sql);
+            statement.setString(1,u.getNombreUsuario());
+            statement.setString(2,u.getNombre());
+            statement.setString(3,u.getApellido());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            Date fechaNacimiento =  sdf.parse(u.getFechaNacimiento());
+            java.sql.Date fechaNacimientoSql = new java.sql.Date(fechaNacimiento.getTime());
+            statement.setDate(4,fechaNacimientoSql);
+            statement.setString(5,u.getCorreoElectronico());
+            statement.setString(6,u.getPassword());
+            statement.setString(7, String.valueOf(u.getRolUsuario()));
+            //controlar si la inserccion fue exitosa
+            int filasInsertadas = statement.executeUpdate();
+            //return filasInsertadas >0;
+            return true;
+        } catch (ParseException e) {
+            // Manejar el error de análisis de fecha
+            //e.printStackTrace();
+            // Lanzar una excepción o manejar el error de alguna otra manera apropiada
+            return false;
+        }finally {
+            // Cerrar la conexión y el PreparedStatement en el bloque finally
+            if (statement != null) {
+                statement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
     }
 
     public static boolean consultarLogin(String nombreUsuario, String contrasena, GestorBBDD bd) throws SQLException {
@@ -119,28 +154,28 @@ public class GestorBBDDOperacionesUsuarios {
 
     // Método para consultar usuarios
     public String usuario (String idUsuario) throws SQLException {
-            String usuario = "";
-            // Asumimos que 'conn' es una conexión válida a tu base de datos
+        String usuario = "";
+        // Asumimos que 'conn' es una conexión válida a tu base de datos
 
-            //String consulta = "SELECT id_localizacion, nombrelocal FROM " + nombreTabla + " ORDER BY id_localizacion ASC";
+        //String consulta = "SELECT id_localizacion, nombrelocal FROM " + nombreTabla + " ORDER BY id_localizacion ASC";
 
-            String consulta = "SELECT nombre, apellidos, correoelectronico FROM usuarios WHERE id_usuario = '" + idUsuario + "'";
+        String consulta = "SELECT nombre, apellidos, correoelectronico FROM usuarios WHERE id_usuario = '" + idUsuario + "'";
 
         try (Statement s = conn.createStatement();
              ResultSet rs = s.executeQuery(consulta)) {
-                    while (rs.next()) {
-                        String nombre = rs.getString("nombre");
-                        String apellidos = rs.getString("apellidos");
-                        String correoElectronido = rs.getString("correoelectronico");
+            while (rs.next()) {
+                String nombre = rs.getString("nombre");
+                String apellidos = rs.getString("apellidos");
+                String correoElectronido = rs.getString("correoelectronico");
 
-                        // Formar el string con los datos separados por "-"
-                        usuario = nombre + "-" + apellidos + "-" + correoElectronido;
-                    }
-            } catch (SQLException e) {
-                System.err.println("Error al obtener los datos del usuario: " + e.getMessage());
-                // Manejar la excepción según la lógica de tu aplicación
+                // Formar el string con los datos separados por "-"
+                usuario = nombre + "-" + apellidos + "-" + correoElectronido;
             }
-            return usuario;
+        } catch (SQLException e) {
+            System.err.println("Error al obtener los datos del usuario: " + e.getMessage());
+            // Manejar la excepción según la lógica de tu aplicación
+        }
+        return usuario;
     }
 
     public String consultaAdministrador(String nombreUsuario) throws SQLException {
@@ -199,4 +234,3 @@ public class GestorBBDDOperacionesUsuarios {
     }
 
 }
-
