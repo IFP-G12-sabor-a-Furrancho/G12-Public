@@ -213,7 +213,26 @@ public class GestorBBDDOperacionesUsuarios {
 
         return id;
     }
-
+    public boolean modificarContrasena(String nombreUsuario, String contrasenaActual, String nuevaContrasena) throws SQLException {
+        String sqlVerificar = "SELECT password FROM " + nombreTabla + " WHERE nombreusuario = ?";
+        try (PreparedStatement pstmtVerificar = conn.prepareStatement(sqlVerificar)) {
+            pstmtVerificar.setString(1, nombreUsuario);
+            ResultSet rs = pstmtVerificar.executeQuery();
+            if (rs.next() && rs.getString("password").equals(contrasenaActual)) {
+                String sqlActualizar = "UPDATE " + nombreTabla + " SET password = ? WHERE nombreusuario = ?";
+                try (PreparedStatement pstmtActualizar = conn.prepareStatement(sqlActualizar)) {
+                    pstmtActualizar.setString(1, nuevaContrasena);
+                    pstmtActualizar.setString(2, nombreUsuario);
+                    int affectedRows = pstmtActualizar.executeUpdate();
+                    return affectedRows > 0;
+                }
+            }
+            return false;
+        } catch (SQLException e) {
+            System.err.println("Error al modificar la contraseña: " + e.getMessage());
+            return false;
+        }
+    }
 
     // Implementación del método actualizarNombre
     public static void actualizarNombre(String idUsuario, String nuevoNombre, Statement s) throws SQLException {

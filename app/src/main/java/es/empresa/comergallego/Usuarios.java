@@ -120,5 +120,6 @@ public class Usuarios {
     public void setRolUsuario(boolean rolUsuario) {
         this.rolUsuario = rolUsuario;
     }
+
 }
 
