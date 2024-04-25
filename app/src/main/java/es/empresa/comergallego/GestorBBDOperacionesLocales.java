@@ -37,26 +37,27 @@ public class GestorBBDOperacionesLocales{
         }
     }
 
-    public Local getLocalDetallesById(int localId) {
+    public Local getLocalDetallesById(String localId) throws SQLException {
         Local local = null;
-        String consulta = "SELECT nombreLocal, direccion, descripcion, tipoLocal, horario, telefono, coordenadasGPS FROM localizaciones WHERE id_localizacion=?";
-        try (PreparedStatement statement = conn.prepareStatement(consulta)) {
-            statement.setInt(1, localId);
-            try (ResultSet rs = statement.executeQuery()) {
-                if (rs.next()) {
-                    local = new Local();
-                    local.setNombre(rs.getString("nombreLocal"));
-                    local.setDireccion(rs.getString("direccion"));
-                    local.setDescripcion(rs.getString("descripcion"));
-                    local.setTipoLocal(rs.getString("tipoLocal"));
-                    local.setHorario(rs.getString("horario"));
-                    local.setTelefono(rs.getString("telefono"));
-                    local.setCoordenadasGPS(rs.getString("coordenadasGPS"));
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        String sql = "SELECT id_localizacion, nombrelocal, direccion, descripcion, tipoLocal, horario, telefono, coordenadasgps FROM localizaciones WHERE nombrelocal = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, localId);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            local = new Local();
+            local.setId(rs.getInt("id_localizacion"));  // Asegurándose que el ID es un entero y está alineado con la base de datos
+            local.setNombre(rs.getString("nombrelocal"));
+            local.setDireccion(rs.getString("direccion"));
+            local.setDescripcion(rs.getString("descripcion"));
+            local.setTipoLocal(rs.getString("tipoLocal"));
+            local.setHorario(rs.getString("horario"));
+            local.setTelefono(rs.getString("telefono"));
+            local.setCoordenadasGPS(rs.getString("coordenadasgps"));
         }
+        rs.close();
+        stmt.close();
+
         return local;
     }
 
@@ -146,7 +147,7 @@ public class GestorBBDOperacionesLocales{
                     String coordenadasGPS = rs.getString("coordenadasgps");
 
                     // Formar el string con los datos separados por "-"
-                    datosLocal = idLocal + "-" + nombreLocal + "-" + direccion + "-" + descripcion + "-" + tipoLocal + "-" + horario + "-" + telefono + "-" + coordenadasGPS;
+                    datosLocal = idLocal + "-.-" + nombreLocal + "-.-" + direccion + "-.-" + descripcion + "-.-" + tipoLocal + "-.-" + horario + "-.-" + telefono + "-.-" + coordenadasGPS;
                 }
             }
         } catch (SQLException e) {
@@ -155,6 +156,32 @@ public class GestorBBDOperacionesLocales{
         }
 
         return datosLocal;
+    }
+
+    //Método para las pruebas de testing
+    public int numeroRegistrosUsuarioAdministrador(int idUsuario) throws SQLException {
+        int numeroRegistros=0;
+        // Asumimos que 'conn' es una conexión válida a tu base de datos
+
+        //String consulta = "SELECT id_localizacion, nombrelocal FROM " + nombreTabla + " ORDER BY id_localizacion ASC";
+
+        String consulta = "SELECT l.*\n" +
+                "FROM localizaciones l\n" +
+                "INNER JOIN usuarios_localizaciones ul ON l.id_localizacion = ul.id_localizacion\n" +
+                "INNER JOIN usuarios u ON ul.id_usuario = u.id_usuario\n" +
+                "WHERE u.id_usuario = "+idUsuario;
+
+        // Utilizar try-with-resources para asegurar que los recursos se cierran correctamente
+        try (Statement s = conn.createStatement();
+             ResultSet rs = s.executeQuery(consulta)) {
+            while (rs.next()) {
+              numeroRegistros++;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener los nombres de los locales: " + e.getMessage());
+            // Considera lanzar la excepción o manejarla según la lógica de tu aplicación
+        }
+        return numeroRegistros;
     }
 
 

@@ -107,6 +107,8 @@ public class ListadoLocalesPropios extends AppCompatActivity {
                 // Pasamos el valor booleano como paquete para indicar que queremos modificar un local y no crearlo
                 pasarPantalla.putExtra("crear", crear);
 
+                pasarPantalla.putExtra("NOMBREUSUARIO",paquete);
+
                 startActivity(pasarPantalla);
                 //Al pasar de pantalla, debemos de recibir el paquete con el nombre en la otra actividad, buscar en la BBDD con el id que mandamos
             }

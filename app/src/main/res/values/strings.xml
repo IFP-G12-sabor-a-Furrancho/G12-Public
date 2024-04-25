@@ -15,6 +15,10 @@
     <string name="error_loading_data">Error cargando datos</string>
     <string name="info_no_data_available">No hay datos disponibles</string>
 
+    <!-- App Theme without the ActionBar -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!-- Add other style properties if needed -->
+    </style>
 </resources>
-
-
