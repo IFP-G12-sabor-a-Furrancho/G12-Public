@@ -1,5 +1,7 @@
 package es.empresa.comergallego;
 
+import static es.empresa.comergallego.RegisterActivity.validarContraseña;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -84,7 +86,18 @@ public class EditActivity extends AppCompatActivity {
             if (!editTextNuevaContrasena.getText().toString().isEmpty() && !editTextContrasenaActual.getText().toString().isEmpty())
             {
                 actualizarDatosUsuario();
-                cambiarContrasena();
+
+                boolean requisitosMinimos= validarContraseña(editTextNuevaContrasena.getText().toString());
+                if (!requisitosMinimos)
+                {
+                    Toast.makeText(EditActivity.this, "La contraseña no cumple los requisitos mínimos de seguridad", Toast.LENGTH_LONG).show();
+                    editTextNuevaContrasena.setText("");
+                }
+
+                else
+                {
+                    cambiarContrasena();
+                }
             }
 
             else if (editTextNuevaContrasena.getText().toString().isEmpty() && editTextContrasenaActual.getText().toString().isEmpty())

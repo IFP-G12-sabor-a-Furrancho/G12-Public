@@ -88,6 +88,25 @@ public class RegisterActivity extends AppCompatActivity {
             //desactivamos el boton registrar
 
 
+
+            textPass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(!hasFocus){
+
+                        boolean requisitosMinimos= validarContraseña(textPass.getText().toString());
+                        if (!requisitosMinimos)
+                        {
+                            Toast.makeText(RegisterActivity.this, "La contraseña no cumple los requisitos mínimos de seguridad", Toast.LENGTH_LONG).show();
+                            textPass.setText("");
+                        }
+                    }
+                }
+            });
+
+
+
+
             textUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
@@ -259,5 +278,36 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    public static boolean validarContraseña(String contraseña) {
+        // Requisitos mínimos de seguridad
+        int longitudMinima = 8;
+        boolean tieneNumero = false;
+        boolean tieneLetraMayuscula = false;
+        boolean tieneLetraMinuscula = false;
+        boolean tieneCaracterEspecial = false;
+        String caracteresEspeciales = "!@#$%^&*()-+";
+
+        // Verificar longitud mínima
+        if (contraseña.length() < longitudMinima) {
+            return false;
+        }
+
+        // Verificar otros requisitos
+        for (char c : contraseña.toCharArray()) {
+            if (Character.isDigit(c)) {
+                tieneNumero = true;
+            } else if (Character.isUpperCase(c)) {
+                tieneLetraMayuscula = true;
+            } else if (Character.isLowerCase(c)) {
+                tieneLetraMinuscula = true;
+            } else if (caracteresEspeciales.contains(String.valueOf(c))) {
+                tieneCaracterEspecial = true;
+            }
+        }
+
+        // Comprobar que se cumplan todos los requisitos
+        return tieneNumero && tieneLetraMayuscula && tieneLetraMinuscula && tieneCaracterEspecial;
     }
 }
