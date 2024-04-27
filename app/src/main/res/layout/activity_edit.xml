@@ -8,12 +8,23 @@
     android:background="#FFFFFF"
     tools:context=".EditActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="183dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="2dp"
+        android:text="Nombre"
+        android:textColor="#59AFFF"
+        app:layout_constraintBottom_toTopOf="@+id/editTextNombre"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/editTextNombre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/border_background"
         android:hint="Nombre"
@@ -30,7 +41,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/border_background"
         android:hint="Apellido"
@@ -42,12 +53,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextNombre" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="183dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="2dp"
+        android:text="Apellido"
+        android:textColor="#59AFFF"
+        app:layout_constraintBottom_toTopOf="@+id/editTextApellido"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/editTextCorreo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/border_background"
         android:hint="Correo electrónico"
@@ -58,6 +80,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextApellido" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="183dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="2dp"
+        android:text="Correo Electrónico"
+        android:textColor="#59AFFF"
+        app:layout_constraintBottom_toTopOf="@+id/editTextCorreo"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextContraseñaActual"
@@ -75,6 +108,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextCorreo" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="183dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="2dp"
+        android:text="Contraseña Actual"
+        android:textColor="#59AFFF"
+        app:layout_constraintBottom_toTopOf="@+id/editTextContraseñaActual"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/editTextNuevaContraseña"
         android:layout_width="0dp"
@@ -90,6 +134,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image1_edit" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="183dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="2dp"
+        android:text="Nueva Contraseña"
+        android:textColor="#59AFFF"
+        app:layout_constraintBottom_toTopOf="@+id/editTextNuevaContraseña"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnGuardarCambios"
