@@ -40,7 +40,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         // Setting an item click listener for the listview
         lista1.setOnItemClickListener((parent, view, position, id) -> {
             String localId = adaptador.getItem(position); // Assume your adapter returns the local IDs
-            String[] nombreLocal = localId.split("\n\n");
+            String[] nombreLocal = localId.split("\n");
             String nombreL = nombreLocal[0];
             Intent intent = new Intent(SearchActivity.this, DetalleLocalActivity.class);
             intent.putExtra("LOCAL_ID", nombreL);
@@ -53,9 +53,12 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         try {
             GestorBBDOperacionesLocales bdLocales = new GestorBBDOperacionesLocales();
             ArrayList<String> localizaciones = bdLocales.consulta(query); // Ensure this method returns local IDs
-            adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, localizaciones);
+            //adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, localizaciones);
+
+            adaptador = new es.empresa.comergallego.ListView(this, localizaciones);
             lista1.setAdapter(adaptador);
-            Toast.makeText(this, "Búsqueda completada.", Toast.LENGTH_SHORT).show();
+
+            //Toast.makeText(this, "Búsqueda completada.", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, "Error en la búsqueda.", Toast.LENGTH_SHORT).show();
         }

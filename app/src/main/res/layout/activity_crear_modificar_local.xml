@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".Activity3C">
 
     <TextView
@@ -14,6 +15,8 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:text="Modificar/Crear local"
+        android:textColor="#000000"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +30,11 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="NombreLocal"
+        android:background="@drawable/border_background"
         android:inputType="text"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label1_activity3c" />
@@ -41,7 +48,11 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Dirección"
+        android:background="@drawable/border_background"
         android:inputType="text"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caja1_activity3c" />
@@ -55,7 +66,11 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Descripción"
+        android:background="@drawable/border_background"
         android:inputType="text"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caja2_activity3c" />
@@ -69,7 +84,11 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="TipoLocal"
+        android:background="@drawable/border_background"
         android:inputType="text"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caja3_activity3c" />
@@ -83,7 +102,11 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Horario"
+        android:background="@drawable/border_background"
         android:inputType="text"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caja4_activity3c" />
@@ -97,7 +120,11 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Telefono"
+        android:background="@drawable/border_background"
         android:inputType="text"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caja5_activity3c" />
@@ -111,16 +138,22 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Coordenadas GPS"
+        android:background="@drawable/border_background"
+        android:textColorHint="#000000"
         android:inputType="text"
+        android:textColor="#000000"
+
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caja6_activity3c" />
 
     <Button
         android:id="@+id/boton1_activity3c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="162dp"
+        android:layout_height="47dp"
         android:layout_marginTop="32dp"
+        android:background="#59AFFF"
         android:text="Modificar/Crear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -131,6 +164,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:background="#59AFFF"
         android:text="Volver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -107,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     DisplayMetrics metrics = getResources().getDisplayMetrics();
                     int screenHeight = metrics.heightPixels;
-                    int yOffset = (int) (screenHeight * 0.515);
+                    int yOffset = (int) (screenHeight * 0.5055);
                     FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
                     params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
                     params.topMargin = yOffset;

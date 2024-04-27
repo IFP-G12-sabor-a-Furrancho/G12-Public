@@ -22,6 +22,7 @@ public class ListadoLocalesPropios extends AppCompatActivity {
 
     //Definición de atributos
     private ListView lista1;
+
     private Button boton1;
 
     private ArrayList<String> nombres;
@@ -81,7 +82,8 @@ public class ListadoLocalesPropios extends AppCompatActivity {
 
 
         //Creamos y Asignamos el ArrayLlist al adaptador
-        adaptador = new ArrayAdapter<String>(ListadoLocalesPropios.this, android.R.layout.simple_list_item_1, nombres);
+        //adaptador = new ArrayAdapter<String>(ListadoLocalesPropios.this, android.R.layout.simple_list_item_1, nombres);
+        adaptador = new es.empresa.comergallego.ListView(this, nombres);
         //Asignamos el adaptador al ListView
         lista1.setAdapter(adaptador);
 
