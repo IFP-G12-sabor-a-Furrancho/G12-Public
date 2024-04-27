@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".RegisterActivity">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -14,7 +15,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/border_background"
         android:hint="Nombre"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@id/layout6_register"
@@ -26,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textColor="#000000"
             android:textSize="24dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -36,7 +40,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/border_background"
         android:hint="Nombre de usuario"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textColor="#000000"
             android:textSize="24dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,7 +65,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/border_background"
         android:hint="Email"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
+            android:textColor="#000000"
             android:textSize="24dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +90,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/border_background"
         android:hint="Apellido"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,6 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textColor="#000000"
             android:textSize="24dp" />
 
 
@@ -99,10 +112,9 @@
 
     <ImageView
         android:id="@+id/image1_register"
-        android:layout_width="46dp"
-        android:layout_height="27dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_gravity="right"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +127,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/border_background"
         android:hint="Password"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image1_register"
@@ -127,6 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textColor="#000000"
             android:textSize="24dp" />
 
 
@@ -139,7 +154,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/border_background"
         android:hint="Fecha de nacimiento"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout2_user"
@@ -150,6 +167,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date"
+            android:textColor="#000000"
             android:textSize="24dp" />
 
 
@@ -172,7 +190,10 @@
             android:id="@+id/checkbox_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_background"
+            android:buttonTint="#000000"
             android:text="Administrador de Local"
+            android:textColor="#000000"
             android:textSize="24sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -184,8 +205,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:background="#59AFFF"
         android:enabled="false"
         android:text="Registrar"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

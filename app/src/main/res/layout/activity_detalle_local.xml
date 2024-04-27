@@ -15,6 +15,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FFFFFF"
         android:padding="16dp">
 
         <LinearLayout
@@ -27,19 +28,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nombre Local"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#000000"
+                android:textSize="34sp" />
 
             <TextView
                 android:id="@+id/direccion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dirección"/>
+                android:text="Dirección"
+                android:textColor="#000000"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/descripcion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Descripción"/>
+                android:text="Descripción"
+                android:textColor="#000000"
+                android:textSize="24sp" />
 
             <!-- Aquí puedes agregar más detalles -->
 
@@ -47,25 +54,33 @@
                 android:id="@+id/tipoLocal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tipo de Local"/>
+                android:text="Tipo de Local"
+                android:textColor="#000000"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/horario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Horario"/>
+                android:text="Horario"
+                android:textColor="#000000"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/telefono"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Teléfono"/>
+                android:text="Teléfono"
+                android:textColor="#000000"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/coordenadasGPS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Coordenadas GPS"/>
+                android:text="Coordenadas GPS"
+                android:textColor="#000000"
+                android:textSize="24sp" />
 
             <!-- Continúa agregando TextViews según sea necesario -->
 

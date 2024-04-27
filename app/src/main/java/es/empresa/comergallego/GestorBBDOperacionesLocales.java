@@ -101,7 +101,7 @@ public class GestorBBDOperacionesLocales{
             System.out.println("");
             while (rs.next()) {
 
-                filas.add(rs.getString(1) + "\n\nDirección: " + rs.getString(2));
+                filas.add(rs.getString(1) + "\nDirección: " + rs.getString(2));
 
                 //filas.add(rs.getString(1) + " - " + rs.getString(2) + " - "
                   //      + rs.getString(3) + " - " + rs.getString(4) + " - "

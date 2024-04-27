@@ -108,7 +108,7 @@ public class EditActivity extends AppCompatActivity {
 
                 DisplayMetrics metrics = getResources().getDisplayMetrics();
                 int screenHeight = metrics.heightPixels;
-                int yOffset = (int) (screenHeight * 0.33);
+                int yOffset = (int) (screenHeight * 0.32);
                 FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
                 params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
                 params.topMargin = yOffset;
