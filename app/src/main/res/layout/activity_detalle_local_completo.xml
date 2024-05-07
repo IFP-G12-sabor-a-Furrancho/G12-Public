@@ -1,75 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".DetalleLocalCompletoActivity">
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- Nombre del Local -->
-        <TextView
-            android:id="@+id/tvNombreLocal"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_nombre_local"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:padding="8dp"/>
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <!-- Dirección -->
-        <TextView
-            android:id="@+id/tvDireccion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_direccion"
-            android:textSize="16sp"
-            android:padding="8dp"/>
+            <!-- Nombre del Local -->
+            <TextView
+                android:id="@+id/tvNombreLocal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_nombre_local"
+                android:textColor="#59AFFF"
+                android:textSize="24sp"
+                android:padding="8dp"/>
 
-        <!-- Descripción -->
-        <TextView
-            android:id="@+id/tvDescripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_descripcion"
-            android:textSize="16sp"
-            android:padding="8dp"/>
+            <!-- Dirección -->
+            <TextView
+                android:id="@+id/tvDireccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_direccion"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:padding="8dp"/>
 
-        <!-- Tipo de Local -->
-        <TextView
-            android:id="@+id/tvTipoLocal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_tipo_local"
-            android:textSize="16sp"
-            android:padding="8dp"/>
+            <!-- Descripción -->
+            <TextView
+                android:id="@+id/tvDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_descripcion"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:padding="8dp"/>
 
-        <!-- Horario -->
-        <TextView
-            android:id="@+id/tvHorario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_horario"
-            android:textSize="16sp"
-            android:padding="8dp"/>
+            <!-- Tipo de Local -->
+            <TextView
+                android:id="@+id/tvTipoLocal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_tipo_local"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:padding="8dp"/>
 
-        <!-- Teléfono -->
-        <TextView
-            android:id="@+id/tvTelefono"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_telefono"
-            android:textSize="16sp"
-            android:padding="8dp"/>
+            <!-- Horario -->
+            <TextView
+                android:id="@+id/tvHorario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_horario"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:padding="8dp"/>
 
-        <!-- Coordenadas GPS -->
-        <TextView
-            android:id="@+id/tvCoordenadasGPS"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_coordenadas_gps"
-            android:textSize="16sp"
-            android:padding="8dp"/>
-    </LinearLayout>
-</ScrollView>
+            <!-- Teléfono -->
+            <TextView
+                android:id="@+id/tvTelefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_telefono"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:padding="8dp"/>
+
+            <!-- Coordenadas GPS -->
+            <TextView
+                android:id="@+id/tvCoordenadasGPS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_coordenadas_gps"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:padding="8dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
