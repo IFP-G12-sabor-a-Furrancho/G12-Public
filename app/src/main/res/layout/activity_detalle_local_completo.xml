@@ -20,75 +20,144 @@
             android:padding="16dp">
 
             <!-- Nombre del Local -->
-            <TextView
-                android:id="@+id/tvNombreLocal"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_nombre_local"
-                android:textColor="#59AFFF"
-                android:textSize="24sp"
-                android:padding="8dp"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre del local"
+                    android:textColor="#59AFFF"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/tvNombreLocal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_nombre_local"
+                    android:textColor="#000000"
+                    android:textSize="24sp"/>
+            </LinearLayout>
 
             <!-- Dirección -->
-            <TextView
-                android:id="@+id/tvDireccion"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_direccion"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:padding="8dp"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dirección"
+                    android:textColor="#59AFFF"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/tvDireccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_direccion"
+                    android:textColor="#000000"
+                    android:textSize="24sp"/>
+            </LinearLayout>
 
             <!-- Descripción -->
-            <TextView
-                android:id="@+id/tvDescripcion"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_descripcion"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:padding="8dp"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción"
+                    android:textColor="#59AFFF"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/tvDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_descripcion"
+                    android:textColor="#000000"
+                    android:textSize="24sp"/>
+            </LinearLayout>
 
             <!-- Tipo de Local -->
-            <TextView
-                android:id="@+id/tvTipoLocal"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_tipo_local"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:padding="8dp"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo de local"
+                    android:textColor="#59AFFF"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/tvTipoLocal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_tipo_local"
+                    android:textColor="#000000"
+                    android:textSize="24sp"/>
+            </LinearLayout>
 
             <!-- Horario -->
-            <TextView
-                android:id="@+id/tvHorario"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_horario"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:padding="8dp"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Horario"
+                    android:textColor="#59AFFF"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/tvHorario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_horario"
+                    android:textColor="#000000"
+                    android:textSize="24sp"/>
+            </LinearLayout>
 
             <!-- Teléfono -->
-            <TextView
-                android:id="@+id/tvTelefono"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_telefono"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:padding="8dp"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Teléfono"
+                    android:textColor="#59AFFF"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/tvTelefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_telefono"
+                    android:textColor="#000000"
+                    android:textSize="24sp"/>
+            </LinearLayout>
 
             <!-- Coordenadas GPS -->
-            <TextView
-                android:id="@+id/tvCoordenadasGPS"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_coordenadas_gps"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:padding="8dp"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Coordenadas GPS"
+                    android:textColor="#59AFFF"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/tvCoordenadasGPS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_coordenadas_gps"
+                    android:textColor="#000000"
+                    android:textSize="24sp"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

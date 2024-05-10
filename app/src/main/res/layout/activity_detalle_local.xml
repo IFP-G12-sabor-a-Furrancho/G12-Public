@@ -31,15 +31,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- Nombre del Local -->
+            <TextView
+                android:id="@+id/labelNombreLocal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Nombre del local"
+                android:textColor="#59AFFF"
+                android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
             <TextView
                 android:id="@+id/nombreLocal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Nombre Local"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:text="@string/label_nombre_local"
                 android:textColor="#000000"
-                android:textSize="34sp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="24sp"
+                app:layout_constraintTop_toBottomOf="@id/labelNombreLocal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Dirección -->
+            <TextView
+                android:id="@+id/labelDireccion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Dirección"
+                android:textColor="#59AFFF"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/nombreLocal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -47,10 +70,22 @@
                 android:id="@+id/direccion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Dirección"
+                android:text="@string/label_direccion"
                 android:textColor="#000000"
                 android:textSize="24sp"
-                app:layout_constraintTop_toBottomOf="@id/nombreLocal"
+                app:layout_constraintTop_toBottomOf="@id/labelDireccion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Descripción -->
+            <TextView
+                android:id="@+id/labelDescripcion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Descripción"
+                android:textColor="#59AFFF"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/direccion"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -58,10 +93,22 @@
                 android:id="@+id/descripcion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Descripción"
+                android:text="@string/label_descripcion"
                 android:textColor="#000000"
                 android:textSize="24sp"
-                app:layout_constraintTop_toBottomOf="@id/direccion"
+                app:layout_constraintTop_toBottomOf="@id/labelDescripcion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Tipo de Local -->
+            <TextView
+                android:id="@+id/labelTipoLocal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Tipo de local"
+                android:textColor="#59AFFF"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/descripcion"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -69,10 +116,22 @@
                 android:id="@+id/tipoLocal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Tipo de Local"
+                android:text="@string/label_tipo_local"
                 android:textColor="#000000"
                 android:textSize="24sp"
-                app:layout_constraintTop_toBottomOf="@id/descripcion"
+                app:layout_constraintTop_toBottomOf="@id/labelTipoLocal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Horario -->
+            <TextView
+                android:id="@+id/labelHorario"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Horario"
+                android:textColor="#59AFFF"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/tipoLocal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -80,10 +139,22 @@
                 android:id="@+id/horario"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Horario"
+                android:text="@string/label_horario"
                 android:textColor="#000000"
                 android:textSize="24sp"
-                app:layout_constraintTop_toBottomOf="@id/tipoLocal"
+                app:layout_constraintTop_toBottomOf="@id/labelHorario"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Teléfono -->
+            <TextView
+                android:id="@+id/labelTelefono"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Teléfono"
+                android:textColor="#59AFFF"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/horario"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -91,10 +162,22 @@
                 android:id="@+id/telefono"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Teléfono"
+                android:text="@string/label_telefono"
                 android:textColor="#000000"
                 android:textSize="24sp"
-                app:layout_constraintTop_toBottomOf="@id/horario"
+                app:layout_constraintTop_toBottomOf="@id/labelTelefono"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Coordenadas GPS -->
+            <TextView
+                android:id="@+id/labelCoordenadasGPS"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Coordenadas GPS"
+                android:textColor="#59AFFF"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/telefono"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -102,10 +185,10 @@
                 android:id="@+id/coordenadasGPS"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Coordenadas GPS"
+                android:text="@string/label_coordenadas_gps"
                 android:textColor="#000000"
                 android:textSize="24sp"
-                app:layout_constraintTop_toBottomOf="@id/telefono"
+                app:layout_constraintTop_toBottomOf="@id/labelCoordenadasGPS"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
